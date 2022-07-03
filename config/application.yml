@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/aggregation_insurances
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: drop-and-create
+  redis:
+    host: localhost
+    port: 6379
+    
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:9091/oauth2/jwks
+
+server:
+  port: 9090

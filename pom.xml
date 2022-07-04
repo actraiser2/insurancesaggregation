@@ -150,6 +150,9 @@
 		        	<to>
 		        		<image>actraiser/insurances-aggregation:${project.version}</image>
 		        	</to>
+		        	<container>
+		        		<jvmFlags>-Xmx750M</jvmFlags>
+		        	</container>
 		        </configuration>
 		    </plugin>
 		</plugins>

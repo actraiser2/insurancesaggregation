@@ -7,17 +7,12 @@ pipeline{
 			}
 			
 		}
-		stage ('Build'){
+		stage ('Build Image & Publish it'){
 			steps{
-				bat 'mvn -DskipTests=true package'
+				bat 'mvn -DskipTests=true spring-boot:build-image'
 			}
 			
 		}
-		stage('Image'){
-			steps{
-				bat 'mvn spring-boot:build-image'
-			}
-			
-		}
+		
 	}
 }

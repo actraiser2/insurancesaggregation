@@ -154,7 +154,7 @@
 		        		<image>actraiser/insurances-aggregation:${project.version}</image>
 		        	</to>
 		        	<container>
-		        		<jvmFlags>-Xmx750M -XX:ReservedCodeCacheSize=120M </jvmFlags>
+		        		<jvmFlags>-Xmx512M</jvmFlags>
 		        	</container>
 		        </configuration>
 		    </plugin>

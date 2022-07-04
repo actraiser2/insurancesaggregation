@@ -7,9 +7,15 @@ pipeline{
 			}
 			
 		}
-		stage ('Build image & publish it'){
+		stage ('Build artifact'){
 			steps{
-				bat 'mvn -DskipTests=true spring-boot:build-image'
+				bat 'mvn -DskipTests=true package'
+			}
+			
+		}
+		stage ('Build image & upload it in the registry'){
+			steps{
+				bat 'mvn jib:build'
 			}
 			
 		}

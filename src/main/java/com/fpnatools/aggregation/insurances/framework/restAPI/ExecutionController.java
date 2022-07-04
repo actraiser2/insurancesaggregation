@@ -53,11 +53,7 @@ public class ExecutionController {
 	
 	@GetMapping("/echo")
 	public String echo(JwtAuthenticationToken auth) {
-		String cad = """
-				Hi roman,
-				
-				I greet to you
-				""";
+		
 		logger.info("cALLING METHOD ECHO");
 		return auth.getToken().getTokenValue();
 	}

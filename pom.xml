@@ -152,6 +152,10 @@
 		        <configuration>
 		        	<to>
 		        		<image>actraiser/insurances-aggregation:${project.version}</image>
+		        		<auth>
+		        			<username>actraiser</username>
+		        			<password>fenix000</password>
+		        		</auth>
 		        	</to>
 		        	<container>
 		        		<jvmFlags>-Xmx512M</jvmFlags>

@@ -13,6 +13,11 @@ pipeline{
 			}
 			
 		}
+		stage('List pods deployed'){
+			steps{
+				bat 'kubectl get pods'
+			}
+		}
 		
 	}
 }

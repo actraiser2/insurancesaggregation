@@ -9,7 +9,7 @@ pipeline{
 		}
 		stage ('Build image & publish it'){
 			steps{
-				bat 'mvn -DskipTests=true build-image'
+				bat 'mvn -DskipTests=true spring-boot:build-image'
 			}
 			
 		}

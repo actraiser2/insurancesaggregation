@@ -3,8 +3,8 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    app: insurances_aggregation
-  name: insurances_aggregation
+    app: insurances-aggregation
+  name: insurances-aggregation
 spec:
   ports:
   - name: 8080-9090

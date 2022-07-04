@@ -131,9 +131,12 @@
 					<image>
 						<name>actraiser/insurances-aggregation:${project.version}</name>
 						<publish>true</publish>
+						<env>
+                            <BPE_DELIM_JAVA_TOOL_OPTIONS xml:space="preserve"> </BPE_DELIM_JAVA_TOOL_OPTIONS>
+                            <BPE_APPEND_JAVA_TOOL_OPTIONS>-Xmx500M</BPE_APPEND_JAVA_TOOL_OPTIONS>
+                        </env>
 					</image>
 					<docker>
-						<host>tcp://192.168.99.100:2376</host>
 						<publishRegistry>
 							<username>actraiser</username>
 							<password>fenix000</password>

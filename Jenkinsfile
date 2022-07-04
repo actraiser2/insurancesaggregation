@@ -11,16 +11,11 @@ pipeline{
 			}
 			
 		}
-		stage ('Build artifact'){
+		stage ('Build image & publish it'){
 			steps{
-				bat 'mvn -DskipTests=true package'
+				bat 'mvn -DskipTests=true build-image'
 			}
 			
-		}
-		stage('Build image & publish it'){
-			steps{
-				bat 'mvn jib:build'
-			}
 		}
 		
 	}

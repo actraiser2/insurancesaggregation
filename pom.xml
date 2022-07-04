@@ -14,7 +14,7 @@
 	<name>InsurancesAggregation</name>
 	<description>Project for aggregating insurances</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 		<spring.cloud-version>2021.0.3</spring.cloud-version>
 	</properties>
 	
@@ -141,6 +141,17 @@
 					</docker>
 				</configuration>
 			</plugin>
+			
+			<plugin>
+		        <groupId>com.google.cloud.tools</groupId>
+		        <artifactId>jib-maven-plugin</artifactId>
+		        <version>3.2.1</version>
+		        <configuration>
+		        	<to>
+		        		<image>actraiser/insurances-aggregation:${project.version}</image>
+		        	</to>
+		        </configuration>
+		    </plugin>
 		</plugins>
 	</build>
 

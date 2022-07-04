@@ -20,5 +20,6 @@ spec:
       containers:
       - image: actraiser/insurances-aggregation:1.0.0
         name: insurances-aggregation
+        imagePullPolicy: Always
         resources: {}
 status: {}

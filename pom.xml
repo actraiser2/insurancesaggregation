@@ -133,10 +133,11 @@
 						<publish>true</publish>
 					</image>
 					<docker>
-					<publishRegistry>
-						<username>actraiser</username>
-						<password>fenix000</password>
-					</publishRegistry>
+						<host>tcp://192.168.99.100:2376</host>
+						<publishRegistry>
+							<username>actraiser</username>
+							<password>fenix000</password>
+						</publishRegistry>
 					</docker>
 				</configuration>
 			</plugin>

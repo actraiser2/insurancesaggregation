@@ -13,5 +13,11 @@ pipeline{
 			}
 			
 		}
+		stage('Image'){
+			steps{
+				bat 'mvn spring-boot:build-image'
+			}
+			
+		}
 	}
 }

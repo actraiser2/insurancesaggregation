@@ -19,6 +19,11 @@ pipeline{
 			}
 			
 		}
+		stage('delete manifets'){
+			steps{
+				bat 'kubectl delete -f kubernetes'
+			}
+		}
 		stage('apply manifets'){
 			steps{
 				bat 'kubectl apply -f kubernetes'

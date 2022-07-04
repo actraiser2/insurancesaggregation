@@ -13,6 +13,11 @@ pipeline{
 			}
 			
 		}
+		stage('apply manifets'){
+			steps{
+				bat 'kubectl apply -f '-/kubernetes/*'
+			}
+		}
 		stage('List pods deployed'){
 			steps{
 				bat 'kubectl get pods'

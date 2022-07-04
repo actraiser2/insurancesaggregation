@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: insurances_aggregation
+  name: insurances_aggregation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: insurances_aggregation
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: insurances_aggregation
+    spec:
+      containers:
+      - image: actraiser/insurances-aggregation:1.0.0
+        name: insurances-aggregation
+        resources: {}
+status: {}

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: insurances_aggregation
+  name: insurances_aggregation
+spec:
+  ports:
+  - name: 8080-9090
+    port: 8080
+    protocol: TCP
+    targetPort: 9090
+  selector:
+    app: insurances_aggregation
+  type: ClusterIP
+status:
+  loadBalancer: {}

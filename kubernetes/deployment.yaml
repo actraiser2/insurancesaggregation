@@ -21,7 +21,8 @@ spec:
       - image: actraiser/insurances-aggregation:1.0.0
         name: insurances-aggregation
         imagePullPolicy: Always
-        resources:
-          requests:
-            memory: "750Mi"
+        envFrom: 
+          - configMapRef:
+              name: insurances-aggregation-cm
+            
 status: {}

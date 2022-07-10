@@ -241,7 +241,7 @@ public class LineaDirectaAdapterImpl implements RobotAdapter {
 			insurance.setBrand(brand);
 			insurance.setCarPlate(carPlate);
 			insurance.setModel(model);
-			insurance.setHome(home);
+			//insurance.setHome(home);
 			insurance.setExtendedModelInfo(vehicleExtendedInf);
 			insurances.add(insurance);
 			

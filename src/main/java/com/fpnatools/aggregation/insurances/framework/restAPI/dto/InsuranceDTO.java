@@ -25,5 +25,4 @@ public abstract class InsuranceDTO {
 	private LocalDate dueDate;
 	private String iban;
 	private List<CoverageDTO> coverages;
-	private HomeDTO home;
 }

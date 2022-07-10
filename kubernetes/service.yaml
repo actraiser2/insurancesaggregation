@@ -4,15 +4,17 @@ metadata:
   creationTimestamp: null
   labels:
     app: insurances-aggregation
+    env: dev
   name: insurances-aggregation
 spec:
   ports:
   - name: 8080-9090
-    port: 8080
+    port: 9090
     protocol: TCP
-    targetPort: 9090
+    targetPort: 8080
   selector:
     app: insurances-aggregation
+    env: dev
   type: ClusterIP
 status:
   loadBalancer: {}

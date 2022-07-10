@@ -36,10 +36,14 @@ public class StartupConfig {
 				var mutuactivosEntity = new InsuranceCompanyEntity();
 				mutuactivosEntity.setName("Mutuactivos");
 				
+				var allianzEntity = new InsuranceCompanyEntity();
+				allianzEntity.setName("Allianz");
+				
 				
 				insuranceCompanyRepository.save(mapfreEntity);
 				insuranceCompanyRepository.save(lineaDirectaEntity);
 				insuranceCompanyRepository.save(mutuactivosEntity);
+				insuranceCompanyRepository.save(allianzEntity);
 				
 			}
 			

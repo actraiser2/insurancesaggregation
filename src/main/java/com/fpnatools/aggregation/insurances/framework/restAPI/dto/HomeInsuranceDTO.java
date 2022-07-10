@@ -10,7 +10,7 @@ public class HomeInsuranceDTO extends InsuranceDTO {
 	private String rawInsurancedHomeAddress;
 	private String propertyRegistryNumber;
 	private String constructionYear;
-	private Double squaredMetres;
+	private String squaredMetres;
 	private String houseType;
 	private String homeAdditionalDetail;
 }

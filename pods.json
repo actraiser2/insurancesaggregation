@@ -1,0 +1,1488 @@
+{
+  "kind": "PodList",
+  "apiVersion": "v1",
+  "metadata": {
+    "resourceVersion": "25924042"
+  },
+  "items": [
+    {
+      "metadata": {
+        "name": "authserver-78f76f57d9-n8plq",
+        "generateName": "authserver-78f76f57d9-",
+        "namespace": "default",
+        "uid": "2671fe81-ece5-4f0e-8978-7100698e5ba9",
+        "resourceVersion": "25807705",
+        "creationTimestamp": "2022-07-08T12:13:10Z",
+        "labels": {
+          "app": "authserver",
+          "pod-template-hash": "78f76f57d9"
+        },
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "name": "authserver-78f76f57d9",
+            "uid": "056de1ef-91a7-4225-9e54-5d7c39d03678",
+            "controller": true,
+            "blockOwnerDeletion": true
+          }
+        ],
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-07-08T12:13:10Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:generateName":{},"f:labels":{".":{},"f:app":{},"f:pod-template-hash":{}},"f:ownerReferences":{".":{},"k:{\"uid\":\"056de1ef-91a7-4225-9e54-5d7c39d03678\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}},"f:spec":{"f:containers":{"k:{\"name\":\"authserver\"}":{".":{},"f:image":{},"f:imagePullPolicy":{},"f:name":{},"f:resources":{},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{}}},"f:dnsPolicy":{},"f:enableServiceLinks":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{},"f:terminationGracePeriodSeconds":{}}}
+          },
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-07-08T12:13:15Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:status":{"f:conditions":{"k:{\"type\":\"ContainersReady\"}":{".":{},"f:lastProbeTime":{},"f:lastTransitionTime":{},"f:status":{},"f:type":{}},"k:{\"type\":\"Initialized\"}":{".":{},"f:lastProbeTime":{},"f:lastTransitionTime":{},"f:status":{},"f:type":{}},"k:{\"type\":\"Ready\"}":{".":{},"f:lastProbeTime":{},"f:lastTransitionTime":{},"f:status":{},"f:type":{}}},"f:containerStatuses":{},"f:hostIP":{},"f:phase":{},"f:podIP":{},"f:podIPs":{".":{},"k:{\"ip\":\"10.244.0.153\"}":{".":{},"f:ip":{}}},"f:startTime":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "kube-api-access-hpkgm",
+            "projected": {
+              "sources": [
+                {
+                  "serviceAccountToken": {
+                    "expirationSeconds": 3607,
+                    "path": "token"
+                  }
+                },
+                {
+                  "configMap": {
+                    "name": "kube-root-ca.crt",
+                    "items": [
+                      {
+                        "key": "ca.crt",
+                        "path": "ca.crt"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "downwardAPI": {
+                    "items": [
+                      {
+                        "path": "namespace",
+                        "fieldRef": {
+                          "apiVersion": "v1",
+                          "fieldPath": "metadata.namespace"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "defaultMode": 420
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "authserver",
+            "image": "actraiser/authserver:1.0.0",
+            "resources": {
+              
+            },
+            "volumeMounts": [
+              {
+                "name": "kube-api-access-hpkgm",
+                "readOnly": true,
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"
+              }
+            ],
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "imagePullPolicy": "Always"
+          }
+        ],
+        "restartPolicy": "Always",
+        "terminationGracePeriodSeconds": 30,
+        "dnsPolicy": "ClusterFirst",
+        "serviceAccountName": "default",
+        "serviceAccount": "default",
+        "nodeName": "pool-josemi-ugoyn",
+        "securityContext": {
+          
+        },
+        "imagePullSecrets": [
+          {
+            "name": "josemy-registry"
+          }
+        ],
+        "schedulerName": "default-scheduler",
+        "tolerations": [
+          {
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "effect": "NoExecute",
+            "tolerationSeconds": 300
+          },
+          {
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "effect": "NoExecute",
+            "tolerationSeconds": 300
+          }
+        ],
+        "priority": 0,
+        "enableServiceLinks": true,
+        "preemptionPolicy": "PreemptLowerPriority"
+      },
+      "status": {
+        "phase": "Running",
+        "conditions": [
+          {
+            "type": "Initialized",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2022-07-08T12:13:10Z"
+          },
+          {
+            "type": "Ready",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2022-07-08T12:13:15Z"
+          },
+          {
+            "type": "ContainersReady",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2022-07-08T12:13:15Z"
+          },
+          {
+            "type": "PodScheduled",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2022-07-08T12:13:10Z"
+          }
+        ],
+        "hostIP": "10.114.0.3",
+        "podIP": "10.244.0.153",
+        "podIPs": [
+          {
+            "ip": "10.244.0.153"
+          }
+        ],
+        "startTime": "2022-07-08T12:13:10Z",
+        "containerStatuses": [
+          {
+            "name": "authserver",
+            "state": {
+              "running": {
+                "startedAt": "2022-07-08T12:13:14Z"
+              }
+            },
+            "lastState": {
+              
+            },
+            "ready": true,
+            "restartCount": 0,
+            "image": "docker.io/actraiser/authserver:1.0.0",
+            "imageID": "docker.io/actraiser/authserver@sha256:d177c257e682c5bdfd0128a53d44b6124da510f16a2aceef880dc5bc908affb1",
+            "containerID": "containerd://abf2e54ad5a5fca13d746df3338fa6724a3345eb60ad61e3a58f2cfb67e7c380",
+            "started": true
+          }
+        ],
+        "qosClass": "BestEffort"
+      }
+    },
+    {
+      "metadata": {
+        "name": "insurances-aggregation-7fd77fbccb-9dqzz",
+        "generateName": "insurances-aggregation-7fd77fbccb-",
+        "namespace": "default",
+        "uid": "4174e4cb-6d89-47e8-a76c-0299985ef02a",
+        "resourceVersion": "25904066",
+        "creationTimestamp": "2022-07-09T06:38:44Z",
+        "labels": {
+          "app": "insurances-aggregation",
+          "pod-template-hash": "7fd77fbccb"
+        },
+        "annotations": {
+          "kubectl.kubernetes.io/restartedAt": "2022-07-09T08:38:45+02:00"
+        },
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "name": "insurances-aggregation-7fd77fbccb",
+            "uid": "ba90face-51f1-40be-a7f8-c5446e50c94a",
+            "controller": true,
+            "blockOwnerDeletion": true
+          }
+        ],
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-07-09T06:38:44Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:kubectl.kubernetes.io/restartedAt":{}},"f:generateName":{},"f:labels":{".":{},"f:app":{},"f:pod-template-hash":{}},"f:ownerReferences":{".":{},"k:{\"uid\":\"ba90face-51f1-40be-a7f8-c5446e50c94a\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}},"f:spec":{"f:containers":{"k:{\"name\":\"insurances-aggregation\"}":{".":{},"f:envFrom":{},"f:image":{},"f:imagePullPolicy":{},"f:name":{},"f:resources":{},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{}}},"f:dnsPolicy":{},"f:enableServiceLinks":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{},"f:terminationGracePeriodSeconds":{}}}
+          },
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-07-09T06:38:47Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:status":{"f:conditions":{"k:{\"type\":\"ContainersReady\"}":{".":{},"f:lastProbeTime":{},"f:lastTransitionTime":{},"f:status":{},"f:type":{}},"k:{\"type\":\"Initialized\"}":{".":{},"f:lastProbeTime":{},"f:lastTransitionTime":{},"f:status":{},"f:type":{}},"k:{\"type\":\"Ready\"}":{".":{},"f:lastProbeTime":{},"f:lastTransitionTime":{},"f:status":{},"f:type":{}}},"f:containerStatuses":{},"f:hostIP":{},"f:phase":{},"f:podIP":{},"f:podIPs":{".":{},"k:{\"ip\":\"10.244.0.213\"}":{".":{},"f:ip":{}}},"f:startTime":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "kube-api-access-pbptb",
+            "projected": {
+              "sources": [
+                {
+                  "serviceAccountToken": {
+                    "expirationSeconds": 3607,
+                    "path": "token"
+                  }
+                },
+                {
+                  "configMap": {
+                    "name": "kube-root-ca.crt",
+                    "items": [
+                      {
+                        "key": "ca.crt",
+                        "path": "ca.crt"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "downwardAPI": {
+                    "items": [
+                      {
+                        "path": "namespace",
+                        "fieldRef": {
+                          "apiVersion": "v1",
+                          "fieldPath": "metadata.namespace"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "defaultMode": 420
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "insurances-aggregation",
+            "image": "actraiser/insurances-aggregation:1.0.0",
+            "envFrom": [
+              {
+                "configMapRef": {
+                  "name": "insurances-aggregation-cm"
+                }
+              }
+            ],
+            "resources": {
+              
+            },
+            "volumeMounts": [
+              {
+                "name": "kube-api-access-pbptb",
+                "readOnly": true,
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"
+              }
+            ],
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "imagePullPolicy": "Always"
+          }
+        ],
+        "restartPolicy": "Always",
+        "terminationGracePeriodSeconds": 30,
+        "dnsPolicy": "ClusterFirst",
+        "serviceAccountName": "default",
+        "serviceAccount": "default",
+        "nodeName": "pool-josemi-ugoyn",
+        "securityContext": {
+          
+        },
+        "imagePullSecrets": [
+          {
+            "name": "josemy-registry"
+          }
+        ],
+        "schedulerName": "default-scheduler",
+        "tolerations": [
+          {
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "effect": "NoExecute",
+            "tolerationSeconds": 300
+          },
+          {
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "effect": "NoExecute",
+            "tolerationSeconds": 300
+          }
+        ],
+        "priority": 0,
+        "enableServiceLinks": true,
+        "preemptionPolicy": "PreemptLowerPriority"
+      },
+      "status": {
+        "phase": "Running",
+        "conditions": [
+          {
+            "type": "Initialized",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2022-07-09T06:38:44Z"
+          },
+          {
+            "type": "Ready",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2022-07-09T06:38:47Z"
+          },
+          {
+            "type": "ContainersReady",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2022-07-09T06:38:47Z"
+          },
+          {
+            "type": "PodScheduled",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2022-07-09T06:38:44Z"
+          }
+        ],
+        "hostIP": "10.114.0.3",
+        "podIP": "10.244.0.213",
+        "podIPs": [
+          {
+            "ip": "10.244.0.213"
+          }
+        ],
+        "startTime": "2022-07-09T06:38:44Z",
+        "containerStatuses": [
+          {
+            "name": "insurances-aggregation",
+            "state": {
+              "running": {
+                "startedAt": "2022-07-09T06:38:46Z"
+              }
+            },
+            "lastState": {
+              
+            },
+            "ready": true,
+            "restartCount": 0,
+            "image": "docker.io/actraiser/insurances-aggregation:1.0.0",
+            "imageID": "docker.io/actraiser/insurances-aggregation@sha256:5e59e5f1767e234ecf4aa5e525dddc62eddf4049b2a180d36ae553ab13a628fb",
+            "containerID": "containerd://8a3c3978faa46f119298efe062234691c33fc0025750f6fcc71b06c4c9707d4f",
+            "started": true
+          }
+        ],
+        "qosClass": "BestEffort"
+      }
+    },
+    {
+      "metadata": {
+        "name": "postgresql-0",
+        "generateName": "postgresql-",
+        "namespace": "default",
+        "uid": "1676a559-bc3a-4573-8e4e-10c68ff900bd",
+        "resourceVersion": "22788171",
+        "creationTimestamp": "2022-04-08T11:31:21Z",
+        "labels": {
+          "app.kubernetes.io/component": "primary",
+          "app.kubernetes.io/instance": "postgresql",
+          "app.kubernetes.io/managed-by": "Helm",
+          "app.kubernetes.io/name": "postgresql",
+          "controller-revision-hash": "postgresql-8c94b798b",
+          "helm.sh/chart": "postgresql-11.1.19",
+          "statefulset.kubernetes.io/pod-name": "postgresql-0"
+        },
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "kind": "StatefulSet",
+            "name": "postgresql",
+            "uid": "e4cb4c73-6064-4bc7-9d5f-8eb186b14f35",
+            "controller": true,
+            "blockOwnerDeletion": true
+          }
+        ],
+        "managedFields": [
+          {
+            "manager": "kube-scheduler",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-04-08T11:31:21Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:status":{"f:conditions":{".":{},"k:{\"type\":\"PodScheduled\"}":{".":{},"f:lastProbeTime":{},"f:lastTransitionTime":{},"f:message":{},"f:reason":{},"f:status":{},"f:type":{}}}}}
+          },
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-06-14T02:59:44Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:generateName":{},"f:labels":{".":{},"f:app.kubernetes.io/component":{},"f:app.kubernetes.io/instance":{},"f:app.kubernetes.io/managed-by":{},"f:app.kubernetes.io/name":{},"f:controller-revision-hash":{},"f:helm.sh/chart":{},"f:statefulset.kubernetes.io/pod-name":{}},"f:ownerReferences":{".":{},"k:{\"uid\":\"e4cb4c73-6064-4bc7-9d5f-8eb186b14f35\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}},"f:spec":{"f:affinity":{".":{},"f:podAntiAffinity":{".":{},"f:preferredDuringSchedulingIgnoredDuringExecution":{}}},"f:containers":{"k:{\"name\":\"postgresql\"}":{".":{},"f:env":{".":{},"k:{\"name\":\"BITNAMI_DEBUG\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"PGDATA\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"POSTGRESQL_CLIENT_MIN_MESSAGES\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"POSTGRESQL_ENABLE_LDAP\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"POSTGRESQL_ENABLE_TLS\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"POSTGRESQL_LOG_CONNECTIONS\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"POSTGRESQL_LOG_DISCONNECTIONS\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"POSTGRESQL_LOG_HOSTNAME\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"POSTGRESQL_PGAUDIT_LOG_CATALOG\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"POSTGRESQL_PORT_NUMBER\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"POSTGRESQL_SHARED_PRELOAD_LIBRARIES\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"POSTGRESQL_VOLUME_DIR\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"POSTGRES_DB\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"POSTGRES_PASSWORD\"}":{".":{},"f:name":{},"f:valueFrom":{".":{},"f:secretKeyRef":{".":{},"f:key":{},"f:name":{}}}},"k:{\"name\":\"POSTGRES_POSTGRES_PASSWORD\"}":{".":{},"f:name":{},"f:valueFrom":{".":{},"f:secretKeyRef":{".":{},"f:key":{},"f:name":{}}}},"k:{\"name\":\"POSTGRES_USER\"}":{".":{},"f:name":{},"f:value":{}}},"f:image":{},"f:imagePullPolicy":{},"f:livenessProbe":{".":{},"f:exec":{".":{},"f:command":{}},"f:failureThreshold":{},"f:initialDelaySeconds":{},"f:periodSeconds":{},"f:successThreshold":{},"f:timeoutSeconds":{}},"f:name":{},"f:ports":{".":{},"k:{\"containerPort\":5432,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:name":{},"f:protocol":{}}},"f:readinessProbe":{".":{},"f:exec":{".":{},"f:command":{}},"f:failureThreshold":{},"f:initialDelaySeconds":{},"f:periodSeconds":{},"f:successThreshold":{},"f:timeoutSeconds":{}},"f:resources":{".":{},"f:requests":{".":{},"f:cpu":{},"f:memory":{}}},"f:securityContext":{".":{},"f:runAsUser":{}},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{},"f:volumeMounts":{".":{},"k:{\"mountPath\":\"/bitnami/postgresql\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/dev/shm\"}":{".":{},"f:mountPath":{},"f:name":{}}}}},"f:dnsPolicy":{},"f:enableServiceLinks":{},"f:hostname":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{".":{},"f:fsGroup":{}},"f:serviceAccount":{},"f:serviceAccountName":{},"f:subdomain":{},"f:terminationGracePeriodSeconds":{},"f:volumes":{".":{},"k:{\"name\":\"data\"}":{".":{},"f:name":{},"f:persistentVolumeClaim":{".":{},"f:claimName":{}}},"k:{\"name\":\"dshm\"}":{".":{},"f:emptyDir":{".":{},"f:medium":{}},"f:name":{}}}}}
+          },
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-06-14T03:08:07Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:status":{"f:conditions":{"k:{\"type\":\"ContainersReady\"}":{".":{},"f:lastProbeTime":{},"f:lastTransitionTime":{},"f:status":{},"f:type":{}},"k:{\"type\":\"Initialized\"}":{".":{},"f:lastProbeTime":{},"f:lastTransitionTime":{},"f:status":{},"f:type":{}},"k:{\"type\":\"Ready\"}":{".":{},"f:lastProbeTime":{},"f:lastTransitionTime":{},"f:status":{},"f:type":{}}},"f:containerStatuses":{},"f:hostIP":{},"f:phase":{},"f:podIP":{},"f:podIPs":{".":{},"k:{\"ip\":\"10.244.0.229\"}":{".":{},"f:ip":{}}},"f:startTime":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "data",
+            "persistentVolumeClaim": {
+              "claimName": "data-postgresql-0"
+            }
+          },
+          {
+            "name": "dshm",
+            "emptyDir": {
+              "medium": "Memory"
+            }
+          },
+          {
+            "name": "kube-api-access-qk555",
+            "projected": {
+              "sources": [
+                {
+                  "serviceAccountToken": {
+                    "expirationSeconds": 3607,
+                    "path": "token"
+                  }
+                },
+                {
+                  "configMap": {
+                    "name": "kube-root-ca.crt",
+                    "items": [
+                      {
+                        "key": "ca.crt",
+                        "path": "ca.crt"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "downwardAPI": {
+                    "items": [
+                      {
+                        "path": "namespace",
+                        "fieldRef": {
+                          "apiVersion": "v1",
+                          "fieldPath": "metadata.namespace"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "defaultMode": 420
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "postgresql",
+            "image": "docker.io/bitnami/postgresql:14.2.0-debian-10-r58",
+            "ports": [
+              {
+                "name": "tcp-postgresql",
+                "containerPort": 5432,
+                "protocol": "TCP"
+              }
+            ],
+            "env": [
+              {
+                "name": "BITNAMI_DEBUG",
+                "value": "false"
+              },
+              {
+                "name": "POSTGRESQL_PORT_NUMBER",
+                "value": "5432"
+              },
+              {
+                "name": "POSTGRESQL_VOLUME_DIR",
+                "value": "/bitnami/postgresql"
+              },
+              {
+                "name": "PGDATA",
+                "value": "/bitnami/postgresql/data"
+              },
+              {
+                "name": "POSTGRES_USER",
+                "value": "root"
+              },
+              {
+                "name": "POSTGRES_POSTGRES_PASSWORD",
+                "valueFrom": {
+                  "secretKeyRef": {
+                    "name": "postgresql",
+                    "key": "postgres-password"
+                  }
+                }
+              },
+              {
+                "name": "POSTGRES_PASSWORD",
+                "valueFrom": {
+                  "secretKeyRef": {
+                    "name": "postgresql",
+                    "key": "password"
+                  }
+                }
+              },
+              {
+                "name": "POSTGRES_DB",
+                "value": "electrical_agg"
+              },
+              {
+                "name": "POSTGRESQL_ENABLE_LDAP",
+                "value": "no"
+              },
+              {
+                "name": "POSTGRESQL_ENABLE_TLS",
+                "value": "no"
+              },
+              {
+                "name": "POSTGRESQL_LOG_HOSTNAME",
+                "value": "false"
+              },
+              {
+                "name": "POSTGRESQL_LOG_CONNECTIONS",
+                "value": "false"
+              },
+              {
+                "name": "POSTGRESQL_LOG_DISCONNECTIONS",
+                "value": "false"
+              },
+              {
+                "name": "POSTGRESQL_PGAUDIT_LOG_CATALOG",
+                "value": "off"
+              },
+              {
+                "name": "POSTGRESQL_CLIENT_MIN_MESSAGES",
+                "value": "error"
+              },
+              {
+                "name": "POSTGRESQL_SHARED_PRELOAD_LIBRARIES",
+                "value": "pgaudit"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "250m",
+                "memory": "256Mi"
+              }
+            },
+            "volumeMounts": [
+              {
+                "name": "dshm",
+                "mountPath": "/dev/shm"
+              },
+              {
+                "name": "data",
+                "mountPath": "/bitnami/postgresql"
+              },
+              {
+                "name": "kube-api-access-qk555",
+                "readOnly": true,
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"
+              }
+            ],
+            "livenessProbe": {
+              "exec": {
+                "command": [
+                  "/bin/sh",
+                  "-c",
+                  "exec pg_isready -U \"root\" -d \"dbname=electrical_agg\" -h 127.0.0.1 -p 5432"
+                ]
+              },
+              "initialDelaySeconds": 30,
+              "timeoutSeconds": 5,
+              "periodSeconds": 10,
+              "successThreshold": 1,
+              "failureThreshold": 6
+            },
+            "readinessProbe": {
+              "exec": {
+                "command": [
+                  "/bin/sh",
+                  "-c",
+                  "-e",
+                  "exec pg_isready -U \"root\" -d \"dbname=electrical_agg\" -h 127.0.0.1 -p 5432\n[ -f /opt/bitnami/postgresql/tmp/.initialized ] || [ -f /bitnami/postgresql/.initialized ]\n"
+                ]
+              },
+              "initialDelaySeconds": 5,
+              "timeoutSeconds": 5,
+              "periodSeconds": 10,
+              "successThreshold": 1,
+              "failureThreshold": 6
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "imagePullPolicy": "IfNotPresent",
+            "securityContext": {
+              "runAsUser": 1001
+            }
+          }
+        ],
+        "restartPolicy": "Always",
+        "terminationGracePeriodSeconds": 30,
+        "dnsPolicy": "ClusterFirst",
+        "serviceAccountName": "default",
+        "serviceAccount": "default",
+        "nodeName": "pool-josemi-ugoyn",
+        "securityContext": {
+          "fsGroup": 1001
+        },
+        "imagePullSecrets": [
+          {
+            "name": "josemy-registry"
+          }
+        ],
+        "hostname": "postgresql-0",
+        "subdomain": "postgresql-hl",
+        "affinity": {
+          "podAntiAffinity": {
+            "preferredDuringSchedulingIgnoredDuringExecution": [
+              {
+                "weight": 1,
+                "podAffinityTerm": {
+                  "labelSelector": {
+                    "matchLabels": {
+                      "app.kubernetes.io/component": "primary",
+                      "app.kubernetes.io/instance": "postgresql",
+                      "app.kubernetes.io/name": "postgresql"
+                    }
+                  },
+                  "namespaces": [
+                    "default"
+                  ],
+                  "topologyKey": "kubernetes.io/hostname"
+                }
+              }
+            ]
+          }
+        },
+        "schedulerName": "default-scheduler",
+        "tolerations": [
+          {
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "effect": "NoExecute",
+            "tolerationSeconds": 300
+          },
+          {
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "effect": "NoExecute",
+            "tolerationSeconds": 300
+          }
+        ],
+        "priority": 0,
+        "enableServiceLinks": true,
+        "preemptionPolicy": "PreemptLowerPriority"
+      },
+      "status": {
+        "phase": "Running",
+        "conditions": [
+          {
+            "type": "Initialized",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2022-04-08T11:31:25Z"
+          },
+          {
+            "type": "Ready",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2022-04-19T03:32:27Z"
+          },
+          {
+            "type": "ContainersReady",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2022-04-19T03:32:27Z"
+          },
+          {
+            "type": "PodScheduled",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2022-04-08T11:31:25Z"
+          }
+        ],
+        "hostIP": "10.114.0.3",
+        "podIP": "10.244.0.229",
+        "podIPs": [
+          {
+            "ip": "10.244.0.229"
+          }
+        ],
+        "startTime": "2022-04-08T11:31:25Z",
+        "containerStatuses": [
+          {
+            "name": "postgresql",
+            "state": {
+              "running": {
+                "startedAt": "2022-04-19T03:32:19Z"
+              }
+            },
+            "lastState": {
+              "terminated": {
+                "exitCode": 255,
+                "reason": "Unknown",
+                "startedAt": "2022-04-08T11:31:56Z",
+                "finishedAt": "2022-04-19T03:31:22Z",
+                "containerID": "containerd://fb792e7192c040a1b89250369a31fc24d5ffc848cba99d93014da155f5081c18"
+              }
+            },
+            "ready": true,
+            "restartCount": 1,
+            "image": "docker.io/bitnami/postgresql:14.2.0-debian-10-r58",
+            "imageID": "docker.io/bitnami/postgresql@sha256:661d0e26654ea93cf22f7e685ba6fe832d8cb47d61b5b12ca3f5ab252e4e4342",
+            "containerID": "containerd://26315aa4243035a186b877693b97efeac31703c3c0e16fbd173230799589de67",
+            "started": true
+          }
+        ],
+        "qosClass": "Burstable"
+      }
+    },
+    {
+      "metadata": {
+        "name": "redis-master-0",
+        "generateName": "redis-master-",
+        "namespace": "default",
+        "uid": "97f7cbd7-a39a-4197-957e-3508843f8af3",
+        "resourceVersion": "25903604",
+        "creationTimestamp": "2022-07-09T06:33:01Z",
+        "labels": {
+          "app.kubernetes.io/component": "master",
+          "app.kubernetes.io/instance": "redis",
+          "app.kubernetes.io/managed-by": "Helm",
+          "app.kubernetes.io/name": "redis",
+          "controller-revision-hash": "redis-master-675c498bc",
+          "helm.sh/chart": "redis-16.13.2",
+          "statefulset.kubernetes.io/pod-name": "redis-master-0"
+        },
+        "annotations": {
+          "checksum/configmap": "5f7e74d76e899f400c1ae7b6e17054a7525677844a6140f4ce7b91e19e90ce5c",
+          "checksum/health": "4056a41a5c962dec8842c1db887f2544ae09c6468ed4c0e460ce1b2359a55db8",
+          "checksum/scripts": "a22b29661f1a9ef0b2165f464d0da94b833db5397edd898b1245edb9240ace6b",
+          "checksum/secret": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "kind": "StatefulSet",
+            "name": "redis-master",
+            "uid": "915cbffe-374d-4acd-9120-230e353e460f",
+            "controller": true,
+            "blockOwnerDeletion": true
+          }
+        ],
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-07-09T06:33:01Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:checksum/configmap":{},"f:checksum/health":{},"f:checksum/scripts":{},"f:checksum/secret":{}},"f:generateName":{},"f:labels":{".":{},"f:app.kubernetes.io/component":{},"f:app.kubernetes.io/instance":{},"f:app.kubernetes.io/managed-by":{},"f:app.kubernetes.io/name":{},"f:controller-revision-hash":{},"f:helm.sh/chart":{},"f:statefulset.kubernetes.io/pod-name":{}},"f:ownerReferences":{".":{},"k:{\"uid\":\"915cbffe-374d-4acd-9120-230e353e460f\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}},"f:spec":{"f:affinity":{".":{},"f:podAntiAffinity":{".":{},"f:preferredDuringSchedulingIgnoredDuringExecution":{}}},"f:containers":{"k:{\"name\":\"redis\"}":{".":{},"f:args":{},"f:command":{},"f:env":{".":{},"k:{\"name\":\"ALLOW_EMPTY_PASSWORD\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"BITNAMI_DEBUG\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"REDIS_PORT\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"REDIS_REPLICATION_MODE\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"REDIS_TLS_ENABLED\"}":{".":{},"f:name":{},"f:value":{}}},"f:image":{},"f:imagePullPolicy":{},"f:livenessProbe":{".":{},"f:exec":{".":{},"f:command":{}},"f:failureThreshold":{},"f:initialDelaySeconds":{},"f:periodSeconds":{},"f:successThreshold":{},"f:timeoutSeconds":{}},"f:name":{},"f:ports":{".":{},"k:{\"containerPort\":6379,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:name":{},"f:protocol":{}}},"f:readinessProbe":{".":{},"f:exec":{".":{},"f:command":{}},"f:failureThreshold":{},"f:initialDelaySeconds":{},"f:periodSeconds":{},"f:successThreshold":{},"f:timeoutSeconds":{}},"f:resources":{},"f:securityContext":{".":{},"f:runAsUser":{}},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{},"f:volumeMounts":{".":{},"k:{\"mountPath\":\"/data\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/health\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/opt/bitnami/redis/etc/\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/opt/bitnami/redis/mounted-etc\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/opt/bitnami/scripts/start-scripts\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/tmp\"}":{".":{},"f:mountPath":{},"f:name":{}}}}},"f:dnsPolicy":{},"f:enableServiceLinks":{},"f:hostname":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{".":{},"f:fsGroup":{}},"f:serviceAccount":{},"f:serviceAccountName":{},"f:subdomain":{},"f:terminationGracePeriodSeconds":{},"f:volumes":{".":{},"k:{\"name\":\"config\"}":{".":{},"f:configMap":{".":{},"f:defaultMode":{},"f:name":{}},"f:name":{}},"k:{\"name\":\"health\"}":{".":{},"f:configMap":{".":{},"f:defaultMode":{},"f:name":{}},"f:name":{}},"k:{\"name\":\"redis-data\"}":{".":{},"f:name":{},"f:persistentVolumeClaim":{".":{},"f:claimName":{}}},"k:{\"name\":\"redis-tmp-conf\"}":{".":{},"f:emptyDir":{},"f:name":{}},"k:{\"name\":\"start-scripts\"}":{".":{},"f:configMap":{".":{},"f:defaultMode":{},"f:name":{}},"f:name":{}},"k:{\"name\":\"tmp\"}":{".":{},"f:emptyDir":{},"f:name":{}}}}}
+          },
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-07-09T06:33:41Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:status":{"f:conditions":{"k:{\"type\":\"ContainersReady\"}":{".":{},"f:lastProbeTime":{},"f:lastTransitionTime":{},"f:status":{},"f:type":{}},"k:{\"type\":\"Initialized\"}":{".":{},"f:lastProbeTime":{},"f:lastTransitionTime":{},"f:status":{},"f:type":{}},"k:{\"type\":\"Ready\"}":{".":{},"f:lastProbeTime":{},"f:lastTransitionTime":{},"f:status":{},"f:type":{}}},"f:containerStatuses":{},"f:hostIP":{},"f:phase":{},"f:podIP":{},"f:podIPs":{".":{},"k:{\"ip\":\"10.244.0.203\"}":{".":{},"f:ip":{}}},"f:startTime":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "redis-data",
+            "persistentVolumeClaim": {
+              "claimName": "redis-data-redis-master-0"
+            }
+          },
+          {
+            "name": "start-scripts",
+            "configMap": {
+              "name": "redis-scripts",
+              "defaultMode": 493
+            }
+          },
+          {
+            "name": "health",
+            "configMap": {
+              "name": "redis-health",
+              "defaultMode": 493
+            }
+          },
+          {
+            "name": "config",
+            "configMap": {
+              "name": "redis-configuration",
+              "defaultMode": 420
+            }
+          },
+          {
+            "name": "redis-tmp-conf",
+            "emptyDir": {
+              
+            }
+          },
+          {
+            "name": "tmp",
+            "emptyDir": {
+              
+            }
+          },
+          {
+            "name": "kube-api-access-fjpmb",
+            "projected": {
+              "sources": [
+                {
+                  "serviceAccountToken": {
+                    "expirationSeconds": 3607,
+                    "path": "token"
+                  }
+                },
+                {
+                  "configMap": {
+                    "name": "kube-root-ca.crt",
+                    "items": [
+                      {
+                        "key": "ca.crt",
+                        "path": "ca.crt"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "downwardAPI": {
+                    "items": [
+                      {
+                        "path": "namespace",
+                        "fieldRef": {
+                          "apiVersion": "v1",
+                          "fieldPath": "metadata.namespace"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "defaultMode": 420
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "redis",
+            "image": "docker.io/bitnami/redis:6.2.7-debian-11-r11",
+            "command": [
+              "/bin/bash"
+            ],
+            "args": [
+              "-c",
+              "/opt/bitnami/scripts/start-scripts/start-master.sh"
+            ],
+            "ports": [
+              {
+                "name": "redis",
+                "containerPort": 6379,
+                "protocol": "TCP"
+              }
+            ],
+            "env": [
+              {
+                "name": "BITNAMI_DEBUG",
+                "value": "false"
+              },
+              {
+                "name": "REDIS_REPLICATION_MODE",
+                "value": "master"
+              },
+              {
+                "name": "ALLOW_EMPTY_PASSWORD",
+                "value": "yes"
+              },
+              {
+                "name": "REDIS_TLS_ENABLED",
+                "value": "no"
+              },
+              {
+                "name": "REDIS_PORT",
+                "value": "6379"
+              }
+            ],
+            "resources": {
+              
+            },
+            "volumeMounts": [
+              {
+                "name": "start-scripts",
+                "mountPath": "/opt/bitnami/scripts/start-scripts"
+              },
+              {
+                "name": "health",
+                "mountPath": "/health"
+              },
+              {
+                "name": "redis-data",
+                "mountPath": "/data"
+              },
+              {
+                "name": "config",
+                "mountPath": "/opt/bitnami/redis/mounted-etc"
+              },
+              {
+                "name": "redis-tmp-conf",
+                "mountPath": "/opt/bitnami/redis/etc/"
+              },
+              {
+                "name": "tmp",
+                "mountPath": "/tmp"
+              },
+              {
+                "name": "kube-api-access-fjpmb",
+                "readOnly": true,
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"
+              }
+            ],
+            "livenessProbe": {
+              "exec": {
+                "command": [
+                  "sh",
+                  "-c",
+                  "/health/ping_liveness_local.sh 5"
+                ]
+              },
+              "initialDelaySeconds": 20,
+              "timeoutSeconds": 6,
+              "periodSeconds": 5,
+              "successThreshold": 1,
+              "failureThreshold": 5
+            },
+            "readinessProbe": {
+              "exec": {
+                "command": [
+                  "sh",
+                  "-c",
+                  "/health/ping_readiness_local.sh 1"
+                ]
+              },
+              "initialDelaySeconds": 20,
+              "timeoutSeconds": 2,
+              "periodSeconds": 5,
+              "successThreshold": 1,
+              "failureThreshold": 5
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "imagePullPolicy": "IfNotPresent",
+            "securityContext": {
+              "runAsUser": 1001
+            }
+          }
+        ],
+        "restartPolicy": "Always",
+        "terminationGracePeriodSeconds": 30,
+        "dnsPolicy": "ClusterFirst",
+        "serviceAccountName": "redis",
+        "serviceAccount": "redis",
+        "nodeName": "pool-josemi-ugoyn",
+        "securityContext": {
+          "fsGroup": 1001
+        },
+        "hostname": "redis-master-0",
+        "subdomain": "redis-headless",
+        "affinity": {
+          "podAntiAffinity": {
+            "preferredDuringSchedulingIgnoredDuringExecution": [
+              {
+                "weight": 1,
+                "podAffinityTerm": {
+                  "labelSelector": {
+                    "matchLabels": {
+                      "app.kubernetes.io/component": "master",
+                      "app.kubernetes.io/instance": "redis",
+                      "app.kubernetes.io/name": "redis"
+                    }
+                  },
+                  "namespaces": [
+                    "default"
+                  ],
+                  "topologyKey": "kubernetes.io/hostname"
+                }
+              }
+            ]
+          }
+        },
+        "schedulerName": "default-scheduler",
+        "tolerations": [
+          {
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "effect": "NoExecute",
+            "tolerationSeconds": 300
+          },
+          {
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "effect": "NoExecute",
+            "tolerationSeconds": 300
+          }
+        ],
+        "priority": 0,
+        "enableServiceLinks": true,
+        "preemptionPolicy": "PreemptLowerPriority"
+      },
+      "status": {
+        "phase": "Running",
+        "conditions": [
+          {
+            "type": "Initialized",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2022-07-09T06:33:01Z"
+          },
+          {
+            "type": "Ready",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2022-07-09T06:33:41Z"
+          },
+          {
+            "type": "ContainersReady",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2022-07-09T06:33:41Z"
+          },
+          {
+            "type": "PodScheduled",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2022-07-09T06:33:01Z"
+          }
+        ],
+        "hostIP": "10.114.0.3",
+        "podIP": "10.244.0.203",
+        "podIPs": [
+          {
+            "ip": "10.244.0.203"
+          }
+        ],
+        "startTime": "2022-07-09T06:33:01Z",
+        "containerStatuses": [
+          {
+            "name": "redis",
+            "state": {
+              "running": {
+                "startedAt": "2022-07-09T06:33:19Z"
+              }
+            },
+            "lastState": {
+              
+            },
+            "ready": true,
+            "restartCount": 0,
+            "image": "docker.io/bitnami/redis:6.2.7-debian-11-r11",
+            "imageID": "docker.io/bitnami/redis@sha256:d94907b0b6bf134fdc891c95f4d789cf4c5d9eaaf0a5a2003c19a6927a71a5d2",
+            "containerID": "containerd://fbbbedef3f12faf0083adb52a501378c8172e069ac61697c8f8d068fbfedba3a",
+            "started": true
+          }
+        ],
+        "qosClass": "BestEffort"
+      }
+    },
+    {
+      "metadata": {
+        "name": "redis-replicas-0",
+        "generateName": "redis-replicas-",
+        "namespace": "default",
+        "uid": "18041c3a-b267-44f4-9b38-8635c5621b47",
+        "resourceVersion": "25903614",
+        "creationTimestamp": "2022-07-09T06:33:01Z",
+        "labels": {
+          "app.kubernetes.io/component": "replica",
+          "app.kubernetes.io/instance": "redis",
+          "app.kubernetes.io/managed-by": "Helm",
+          "app.kubernetes.io/name": "redis",
+          "controller-revision-hash": "redis-replicas-6b7bf9744f",
+          "helm.sh/chart": "redis-16.13.2",
+          "statefulset.kubernetes.io/pod-name": "redis-replicas-0"
+        },
+        "annotations": {
+          "checksum/configmap": "5f7e74d76e899f400c1ae7b6e17054a7525677844a6140f4ce7b91e19e90ce5c",
+          "checksum/health": "4056a41a5c962dec8842c1db887f2544ae09c6468ed4c0e460ce1b2359a55db8",
+          "checksum/scripts": "a22b29661f1a9ef0b2165f464d0da94b833db5397edd898b1245edb9240ace6b",
+          "checksum/secret": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "kind": "StatefulSet",
+            "name": "redis-replicas",
+            "uid": "c40adcda-2e6b-48a7-8970-7a5ed11ac499",
+            "controller": true,
+            "blockOwnerDeletion": true
+          }
+        ],
+        "managedFields": [
+          {
+            "manager": "kube-controller-manager",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-07-09T06:33:01Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:metadata":{"f:annotations":{".":{},"f:checksum/configmap":{},"f:checksum/health":{},"f:checksum/scripts":{},"f:checksum/secret":{}},"f:generateName":{},"f:labels":{".":{},"f:app.kubernetes.io/component":{},"f:app.kubernetes.io/instance":{},"f:app.kubernetes.io/managed-by":{},"f:app.kubernetes.io/name":{},"f:controller-revision-hash":{},"f:helm.sh/chart":{},"f:statefulset.kubernetes.io/pod-name":{}},"f:ownerReferences":{".":{},"k:{\"uid\":\"c40adcda-2e6b-48a7-8970-7a5ed11ac499\"}":{".":{},"f:apiVersion":{},"f:blockOwnerDeletion":{},"f:controller":{},"f:kind":{},"f:name":{},"f:uid":{}}}},"f:spec":{"f:affinity":{".":{},"f:podAntiAffinity":{".":{},"f:preferredDuringSchedulingIgnoredDuringExecution":{}}},"f:containers":{"k:{\"name\":\"redis\"}":{".":{},"f:args":{},"f:command":{},"f:env":{".":{},"k:{\"name\":\"ALLOW_EMPTY_PASSWORD\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"BITNAMI_DEBUG\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"REDIS_MASTER_HOST\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"REDIS_MASTER_PORT_NUMBER\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"REDIS_PORT\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"REDIS_REPLICATION_MODE\"}":{".":{},"f:name":{},"f:value":{}},"k:{\"name\":\"REDIS_TLS_ENABLED\"}":{".":{},"f:name":{},"f:value":{}}},"f:image":{},"f:imagePullPolicy":{},"f:livenessProbe":{".":{},"f:exec":{".":{},"f:command":{}},"f:failureThreshold":{},"f:initialDelaySeconds":{},"f:periodSeconds":{},"f:successThreshold":{},"f:timeoutSeconds":{}},"f:name":{},"f:ports":{".":{},"k:{\"containerPort\":6379,\"protocol\":\"TCP\"}":{".":{},"f:containerPort":{},"f:name":{},"f:protocol":{}}},"f:readinessProbe":{".":{},"f:exec":{".":{},"f:command":{}},"f:failureThreshold":{},"f:initialDelaySeconds":{},"f:periodSeconds":{},"f:successThreshold":{},"f:timeoutSeconds":{}},"f:resources":{},"f:securityContext":{".":{},"f:runAsUser":{}},"f:startupProbe":{".":{},"f:failureThreshold":{},"f:initialDelaySeconds":{},"f:periodSeconds":{},"f:successThreshold":{},"f:tcpSocket":{".":{},"f:port":{}},"f:timeoutSeconds":{}},"f:terminationMessagePath":{},"f:terminationMessagePolicy":{},"f:volumeMounts":{".":{},"k:{\"mountPath\":\"/data\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/health\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/opt/bitnami/redis/etc\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/opt/bitnami/redis/mounted-etc\"}":{".":{},"f:mountPath":{},"f:name":{}},"k:{\"mountPath\":\"/opt/bitnami/scripts/start-scripts\"}":{".":{},"f:mountPath":{},"f:name":{}}}}},"f:dnsPolicy":{},"f:enableServiceLinks":{},"f:hostname":{},"f:restartPolicy":{},"f:schedulerName":{},"f:securityContext":{".":{},"f:fsGroup":{}},"f:serviceAccount":{},"f:serviceAccountName":{},"f:subdomain":{},"f:terminationGracePeriodSeconds":{},"f:volumes":{".":{},"k:{\"name\":\"config\"}":{".":{},"f:configMap":{".":{},"f:defaultMode":{},"f:name":{}},"f:name":{}},"k:{\"name\":\"health\"}":{".":{},"f:configMap":{".":{},"f:defaultMode":{},"f:name":{}},"f:name":{}},"k:{\"name\":\"redis-data\"}":{".":{},"f:name":{},"f:persistentVolumeClaim":{".":{},"f:claimName":{}}},"k:{\"name\":\"redis-tmp-conf\"}":{".":{},"f:emptyDir":{},"f:name":{}},"k:{\"name\":\"start-scripts\"}":{".":{},"f:configMap":{".":{},"f:defaultMode":{},"f:name":{}},"f:name":{}}}}}
+          },
+          {
+            "manager": "kubelet",
+            "operation": "Update",
+            "apiVersion": "v1",
+            "time": "2022-07-09T06:33:46Z",
+            "fieldsType": "FieldsV1",
+            "fieldsV1": {"f:status":{"f:conditions":{"k:{\"type\":\"ContainersReady\"}":{".":{},"f:lastProbeTime":{},"f:lastTransitionTime":{},"f:status":{},"f:type":{}},"k:{\"type\":\"Initialized\"}":{".":{},"f:lastProbeTime":{},"f:lastTransitionTime":{},"f:status":{},"f:type":{}},"k:{\"type\":\"Ready\"}":{".":{},"f:lastProbeTime":{},"f:lastTransitionTime":{},"f:status":{},"f:type":{}}},"f:containerStatuses":{},"f:hostIP":{},"f:phase":{},"f:podIP":{},"f:podIPs":{".":{},"k:{\"ip\":\"10.244.0.152\"}":{".":{},"f:ip":{}}},"f:startTime":{}}}
+          }
+        ]
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "redis-data",
+            "persistentVolumeClaim": {
+              "claimName": "redis-data-redis-replicas-0"
+            }
+          },
+          {
+            "name": "start-scripts",
+            "configMap": {
+              "name": "redis-scripts",
+              "defaultMode": 493
+            }
+          },
+          {
+            "name": "health",
+            "configMap": {
+              "name": "redis-health",
+              "defaultMode": 493
+            }
+          },
+          {
+            "name": "config",
+            "configMap": {
+              "name": "redis-configuration",
+              "defaultMode": 420
+            }
+          },
+          {
+            "name": "redis-tmp-conf",
+            "emptyDir": {
+              
+            }
+          },
+          {
+            "name": "kube-api-access-g9htf",
+            "projected": {
+              "sources": [
+                {
+                  "serviceAccountToken": {
+                    "expirationSeconds": 3607,
+                    "path": "token"
+                  }
+                },
+                {
+                  "configMap": {
+                    "name": "kube-root-ca.crt",
+                    "items": [
+                      {
+                        "key": "ca.crt",
+                        "path": "ca.crt"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "downwardAPI": {
+                    "items": [
+                      {
+                        "path": "namespace",
+                        "fieldRef": {
+                          "apiVersion": "v1",
+                          "fieldPath": "metadata.namespace"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "defaultMode": 420
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "redis",
+            "image": "docker.io/bitnami/redis:6.2.7-debian-11-r11",
+            "command": [
+              "/bin/bash"
+            ],
+            "args": [
+              "-c",
+              "/opt/bitnami/scripts/start-scripts/start-replica.sh"
+            ],
+            "ports": [
+              {
+                "name": "redis",
+                "containerPort": 6379,
+                "protocol": "TCP"
+              }
+            ],
+            "env": [
+              {
+                "name": "BITNAMI_DEBUG",
+                "value": "false"
+              },
+              {
+                "name": "REDIS_REPLICATION_MODE",
+                "value": "slave"
+              },
+              {
+                "name": "REDIS_MASTER_HOST",
+                "value": "redis-master-0.redis-headless.default.svc.cluster.local"
+              },
+              {
+                "name": "REDIS_MASTER_PORT_NUMBER",
+                "value": "6379"
+              },
+              {
+                "name": "ALLOW_EMPTY_PASSWORD",
+                "value": "yes"
+              },
+              {
+                "name": "REDIS_TLS_ENABLED",
+                "value": "no"
+              },
+              {
+                "name": "REDIS_PORT",
+                "value": "6379"
+              }
+            ],
+            "resources": {
+              
+            },
+            "volumeMounts": [
+              {
+                "name": "start-scripts",
+                "mountPath": "/opt/bitnami/scripts/start-scripts"
+              },
+              {
+                "name": "health",
+                "mountPath": "/health"
+              },
+              {
+                "name": "redis-data",
+                "mountPath": "/data"
+              },
+              {
+                "name": "config",
+                "mountPath": "/opt/bitnami/redis/mounted-etc"
+              },
+              {
+                "name": "redis-tmp-conf",
+                "mountPath": "/opt/bitnami/redis/etc"
+              },
+              {
+                "name": "kube-api-access-g9htf",
+                "readOnly": true,
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"
+              }
+            ],
+            "livenessProbe": {
+              "exec": {
+                "command": [
+                  "sh",
+                  "-c",
+                  "/health/ping_liveness_local_and_master.sh 5"
+                ]
+              },
+              "initialDelaySeconds": 20,
+              "timeoutSeconds": 6,
+              "periodSeconds": 5,
+              "successThreshold": 1,
+              "failureThreshold": 5
+            },
+            "readinessProbe": {
+              "exec": {
+                "command": [
+                  "sh",
+                  "-c",
+                  "/health/ping_readiness_local_and_master.sh 1"
+                ]
+              },
+              "initialDelaySeconds": 20,
+              "timeoutSeconds": 2,
+              "periodSeconds": 5,
+              "successThreshold": 1,
+              "failureThreshold": 5
+            },
+            "startupProbe": {
+              "tcpSocket": {
+                "port": "redis"
+              },
+              "initialDelaySeconds": 10,
+              "timeoutSeconds": 5,
+              "periodSeconds": 10,
+              "successThreshold": 1,
+              "failureThreshold": 22
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File",
+            "imagePullPolicy": "IfNotPresent",
+            "securityContext": {
+              "runAsUser": 1001
+            }
+          }
+        ],
+        "restartPolicy": "Always",
+        "terminationGracePeriodSeconds": 30,
+        "dnsPolicy": "ClusterFirst",
+        "serviceAccountName": "redis",
+        "serviceAccount": "redis",
+        "nodeName": "pool-josemi-ugoyn",
+        "securityContext": {
+          "fsGroup": 1001
+        },
+        "hostname": "redis-replicas-0",
+        "subdomain": "redis-headless",
+        "affinity": {
+          "podAntiAffinity": {
+            "preferredDuringSchedulingIgnoredDuringExecution": [
+              {
+                "weight": 1,
+                "podAffinityTerm": {
+                  "labelSelector": {
+                    "matchLabels": {
+                      "app.kubernetes.io/component": "replica",
+                      "app.kubernetes.io/instance": "redis",
+                      "app.kubernetes.io/name": "redis"
+                    }
+                  },
+                  "namespaces": [
+                    "default"
+                  ],
+                  "topologyKey": "kubernetes.io/hostname"
+                }
+              }
+            ]
+          }
+        },
+        "schedulerName": "default-scheduler",
+        "tolerations": [
+          {
+            "key": "node.kubernetes.io/not-ready",
+            "operator": "Exists",
+            "effect": "NoExecute",
+            "tolerationSeconds": 300
+          },
+          {
+            "key": "node.kubernetes.io/unreachable",
+            "operator": "Exists",
+            "effect": "NoExecute",
+            "tolerationSeconds": 300
+          }
+        ],
+        "priority": 0,
+        "enableServiceLinks": true,
+        "preemptionPolicy": "PreemptLowerPriority"
+      },
+      "status": {
+        "phase": "Running",
+        "conditions": [
+          {
+            "type": "Initialized",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2022-07-09T06:33:01Z"
+          },
+          {
+            "type": "Ready",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2022-07-09T06:33:46Z"
+          },
+          {
+            "type": "ContainersReady",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2022-07-09T06:33:46Z"
+          },
+          {
+            "type": "PodScheduled",
+            "status": "True",
+            "lastProbeTime": null,
+            "lastTransitionTime": "2022-07-09T06:33:01Z"
+          }
+        ],
+        "hostIP": "10.114.0.3",
+        "podIP": "10.244.0.152",
+        "podIPs": [
+          {
+            "ip": "10.244.0.152"
+          }
+        ],
+        "startTime": "2022-07-09T06:33:01Z",
+        "containerStatuses": [
+          {
+            "name": "redis",
+            "state": {
+              "running": {
+                "startedAt": "2022-07-09T06:33:19Z"
+              }
+            },
+            "lastState": {
+              
+            },
+            "ready": true,
+            "restartCount": 0,
+            "image": "docker.io/bitnami/redis:6.2.7-debian-11-r11",
+            "imageID": "docker.io/bitnami/redis@sha256:d94907b0b6bf134fdc891c95f4d789cf4c5d9eaaf0a5a2003c19a6927a71a5d2",
+            "containerID": "containerd://7aad8f5c3485e29212a61ea1e77b29ab2704675cc00c00831f49ad2ddef1c242",
+            "started": true
+          }
+        ],
+        "qosClass": "BestEffort"
+      }
+    }
+  ]
+}

@@ -10,4 +10,7 @@ public class HomeDTO {
 	private String province;
 	private String number;
 	private String street;
+	private String floor;
+	private String door;
+	private String streetType;
 }

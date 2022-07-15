@@ -18,6 +18,8 @@ public interface RobotAdapter {
 	
 	public List<CarInsuranceDTO> getCarInsurances();
 	
+	public default void releaseResources(){}
+	
 	
 	public default DateTimeFormatter getDefaultDateFormatter() {
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -30,5 +32,6 @@ public interface RobotAdapter {
 		
 		return dateFormatter;
 	}
+
 	
 }

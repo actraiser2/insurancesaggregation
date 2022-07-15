@@ -181,13 +181,24 @@ public class LineaDirectaAdapterImpl implements RobotAdapter {
 				coverages.add(new CoverageDTO("Capital Vivienda", Double.parseDouble(capitalViviendaInteger)));
 		
 				var insurance = new HomeInsuranceDTO();
+				HomeDTO asseguredHome = new HomeDTO();
+				asseguredHome.setCity(beanDomicilio.get("codLocalidad").toString());
+				asseguredHome.setProvince(beanDomicilio.get("descri30Provincia").toString());
+				asseguredHome.setPostalCode(beanDomicilio.get("codPostal").toString());
+				asseguredHome.setStreet(beanDomicilio.get("descri50Via").toString());
+				asseguredHome.setStreetType(beanDomicilio.get("tipoVia").toString());
+				asseguredHome.setFloor(beanDomicilio.get("piso").toString());
+				asseguredHome.setDoor(beanDomicilio.get("puerta").toString());
+				asseguredHome.setNumber(beanDomicilio.get("numero").toString());
+				asseguredHome.setRawAddress(rawInsurancedHomeAddress);
+				
 				insurance.setDueDate(LocalDate.parse(dueDate, this.getDefaultDateFormatter2()));
 				insurance.setStartingDate(LocalDate.parse(startingDate, this.getDefaultDateFormatter2()));
 				insurance.setPremium(Double.parseDouble(premium));
 				insurance.setProductId(policyNumber);
 				insurance.setProductName(productName);
 				insurance.setRecurrence(paymentType);
-				insurance.setRawInsurancedHomeAddress(rawInsurancedHomeAddress);
+				insurance.setAsseguredHome(asseguredHome);
 				insurance.setConstructionYear(constructionYear);
 				insurance.setHouseType(houseType);
 				insurance.setCoverages(coverages);

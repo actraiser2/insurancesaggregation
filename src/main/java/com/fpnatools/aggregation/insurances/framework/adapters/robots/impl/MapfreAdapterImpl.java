@@ -127,7 +127,7 @@ public class MapfreAdapterImpl implements RobotAdapter {
 	@Override
 	public List<HomeInsuranceDTO> getHomeInsurances() {
 		// TODO Auto-generated method stub
-		var  insurances = new ArrayList<HomeInsuranceDTO>();
+		var insurances = new ArrayList<HomeInsuranceDTO>();
 		
 		Response response = given().
 			header("X-Version-Id", serviceVersion).
@@ -176,6 +176,8 @@ public class MapfreAdapterImpl implements RobotAdapter {
 			String premium = policyDetailJsonPath.getString("anualAmount");
 			String startingDate = policyDetailJsonPath.getString("anualStartDate");
 			String homeAdditionalDetail =  policyDetailJsonPath.getString("risk");
+			
+			
 			List<Map<String, Object>> coverageList = policyDetailJsonPath.getList("coverages");
 			
 			List<CoverageDTO> coverages = coverageList.stream().map(c -> {
@@ -188,7 +190,18 @@ public class MapfreAdapterImpl implements RobotAdapter {
 				return coverage;
 			}).collect(Collectors.toList());
 			
-			insurance.setRawInsurancedHomeAddress(rawAddress);
+			HomeDTO asseguredHome = new HomeDTO();
+			asseguredHome.setCity(policyDetailJsonPath.getString("decomposedAddress.city"));
+			asseguredHome.setNumber(policyDetailJsonPath.getString("decomposedAddress.number"));
+			asseguredHome.setPostalCode(policyDetailJsonPath.getString("decomposedAddress.postalCode"));
+			asseguredHome.setProvince(policyDetailJsonPath.getString("decomposedAddress.province"));
+			asseguredHome.setStreet(policyDetailJsonPath.getString("decomposedAddress.street"));
+			asseguredHome.setFloor(policyDetailJsonPath.getString("decomposedAddress.floor"));
+			asseguredHome.setDoor(policyDetailJsonPath.getString("decomposedAddress.door"));
+			asseguredHome.setStreetType(policyDetailJsonPath.getString("decomposedAddress.streetType"));
+			asseguredHome.setRawAddress(policyDetailJsonPath.getString("address.rawAddress"));
+			
+			insurance.setAsseguredHome(asseguredHome);
 			insurance.setProductId(policyNumber);
 			insurance.setProductName(productName);
 			insurance.setDueDate(LocalDate.parse(dueDate, this.getDefaultDateFormatter()));

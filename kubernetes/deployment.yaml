@@ -20,12 +20,25 @@ spec:
         app: insurances-aggregation
         env: dev
     spec:
+      volumes:
+        - name: shared-folder
+          emptyDir: {}
+      initContainers:
+      - name: clone-repository
+        image: bitnami/git
+        workingDir: "/git"
+        command: ["/opt/bitnami/git/bin/git", "clone", "https://jmbesada:5yxYwfcDdXAhxxWFrhtf@bitbucket.org/jmbesada/insurancesaggregation.git"]
+        volumeMounts:
+          - name: shared-folder
+            mountPath: /git
       containers:
-      - image: actraiser/insurances-aggregation:1.0.0
+      - image: actraiser/insurances-aggregation:1.0.2
         name: insurances-aggregation
         imagePullPolicy: Always
         envFrom: 
           - configMapRef:
               name: insurances-aggregation-cm
-            
+        volumeMounts:
+          - name: shared-folder
+            mountPath: /git    
 status: {}

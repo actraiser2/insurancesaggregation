@@ -82,7 +82,7 @@ public class AxaAdapterImpl implements RobotAdapter {
 			return true;
 		}
 		else if (response.statusCode() != 401) {
-			throw new GenericAggregationException("");
+			throw new GenericAggregationException(response.asString());
 		}
 		return false;
 	}
@@ -227,7 +227,11 @@ public class AxaAdapterImpl implements RobotAdapter {
 						jsonPathDetail.getString("data.policyDetail.resume.annualAmount").replaceAll("[^\\d.]", "") : null;
 				String documentId = detailResponse.jsonPath().getString("data.policyDetail.documents.items[0].id");
 				
-				insurance.setRawInsurancedHomeAddress(rawInsurancedHomeAddress);
+				HomeDTO asseguredHome = new HomeDTO();
+				asseguredHome.setRawAddress(rawInsurancedHomeAddress);
+				
+				
+				insurance.setAsseguredHome(asseguredHome);
 				insurance.setPremium(premium != null ? Double.parseDouble(premium) : null);
 				insurance.setStartingDate(startingDate != null ? LocalDate.parse(startingDate, this.getDefaultDateFormatter2()): null);
 				insurance.setDueDate(dueDate != null ? LocalDate.parse(dueDate, this.getDefaultDateFormatter2()): null);

@@ -22,6 +22,7 @@ import com.fpnatools.aggregation.insurances.framework.adapters.RobotAdapter;
 import com.fpnatools.aggregation.insurances.framework.exceptions.GenericAggregationException;
 import com.fpnatools.aggregation.insurances.framework.restAPI.dto.CarInsuranceDTO;
 import com.fpnatools.aggregation.insurances.framework.restAPI.dto.CoverageDTO;
+import com.fpnatools.aggregation.insurances.framework.restAPI.dto.HomeDTO;
 import com.fpnatools.aggregation.insurances.framework.restAPI.dto.HomeInsuranceDTO;
 import com.fpnatools.aggregation.insurances.framework.restAPI.dto.InsuranceDTO;
 import com.fpnatools.aggregation.insurances.framework.restAPI.dto.PersonalInformationDTO;
@@ -122,11 +123,11 @@ public class AllianzAdapterImpl implements RobotAdapter {
 				return false;
 			}
 			else {
-				throw new GenericAggregationException("");
+				throw new GenericAggregationException(response.asString());
 			}
 		}
 		else {
-			throw new GenericAggregationException("");
+			throw new GenericAggregationException(response.asString());
 		}
 	}
 
@@ -237,7 +238,9 @@ public class AllianzAdapterImpl implements RobotAdapter {
 							}
 							else if (l.contains("Dirección:")) {
 								String address = StringUtils.substringAfter(l, ":").trim();
-								insurance.setRawInsurancedHomeAddress(address);
+								HomeDTO asseguredHome = new HomeDTO();
+								asseguredHome.setRawAddress(address);
+								insurance.setAsseguredHome(asseguredHome);
 							}
 							else if (l.contains("Año Construcción:")) {
 								String constructionYear = StringUtils.substringAfter(l, ":").trim();

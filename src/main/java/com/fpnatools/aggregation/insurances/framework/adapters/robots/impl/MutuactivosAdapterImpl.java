@@ -71,7 +71,7 @@ public class MutuactivosAdapterImpl implements RobotAdapter {
 		}
 		else {
 			if (response.statusCode() != 401) {
-				throw new GenericAggregationException("");
+				throw new GenericAggregationException(response.asString());
 			}
 		}
 		return false;
@@ -94,7 +94,7 @@ public class MutuactivosAdapterImpl implements RobotAdapter {
 		when().
 			get(baseUrl + "/api/seguros/v1/polizas").
 		then().
-			log().all().
+			//log().all().
 		extract().
 			response();
 		
@@ -135,6 +135,74 @@ public class MutuactivosAdapterImpl implements RobotAdapter {
 		// TODO Auto-generated method stub
 		var insurances = new ArrayList<HomeInsuranceDTO>();
 		
+		Response response = given().
+			header("x-mutua-feventsource", "acceder").
+			header("User-Agent", ":	okhttp/4.8.1").
+			header("Authorization", "Bearer " + authToken).
+			header("User-Agent", ":	okhttp/4.8.1").
+			header("X-mutua-channel", "APP-MM").
+			header("x-ibm-client-id", "20b04c60-d8a2-439d-bc3f-d4f4f1e0fa67").
+			relaxedHTTPSValidation().
+			log().all().
+		when().
+			get(baseUrl + "/api/seguros/v1/posicionGlobalDetallada").
+		then().
+			log().all().
+		extract().
+			response();
+		
+		
+		List<Map<String, Object>> insurancesList = response.jsonPath().getList("polizasHogar");
+		if (insurancesList != null) {
+			insurancesList.stream().forEach(i -> {
+				Map<String, Object> inmuebleDetail = (Map<String, Object>)i.get("datosPrincipalesHogar");
+				Map<String, Object> inmuebleFeatures = (Map<String, Object>)i.get("inmueble");
+				String policyNumber = i.get("polizaId").toString();
+				String productName = i.get("alias").toString();
+				String dueDate = i.get("fechaVencimiento").toString();
+				String startingDate = i.get("fechaEstado").toString();
+				String iban = ((Map)i.get("cuentaBancaria")).get("numeroCuenta").toString();
+				String premium = ((Map)i.get("ultimoRecibo")).get("importe").toString();
+				String recurrence = i.get("frecuenciaPago").toString();
+				String houseType = ((Map)inmuebleFeatures.get("caracteristicas")).get("tipoVivienda").toString();
+				String constructionYear = ((Map)inmuebleFeatures.get("caracteristicas")).get("anoConstruccion").toString();
+				String squaredMetres = ((Map)((Map)inmuebleFeatures.get("caracteristicas")).get("dimensiones")).get("superficieConstruida").toString();
+				
+				
+				var insurance = new HomeInsuranceDTO();
+				HomeDTO asseguredHome = new HomeDTO();
+				
+				insurance.setProductName(productName);
+				insurance.setProductId(policyNumber);
+				insurance.setDueDate(LocalDate.parse(dueDate, this.getDefaultDateFormatter()));
+				insurance.setStartingDate(LocalDate.parse(startingDate, this.getDefaultDateFormatter()));
+				insurance.setIban(iban);
+				insurance.setPremium(Double.parseDouble(premium));
+				insurance.setRecurrence(recurrence);
+				insurance.setHouseType(houseType);
+				insurance.setConstructionYear(constructionYear);
+				insurance.setSquaredMetres(squaredMetres);
+				
+				asseguredHome.setCity(((Map)inmuebleDetail.get("inmueble")).get("localidad").toString());
+				asseguredHome.setNumber(((Map)inmuebleDetail.get("inmueble")).get("numero").toString());
+				asseguredHome.setPostalCode(((Map)inmuebleDetail.get("inmueble")).get("cp").toString());
+				asseguredHome.setProvince(((Map)inmuebleDetail.get("inmueble")).get("provincia").toString());
+				asseguredHome.setStreet(((Map)inmuebleDetail.get("inmueble")).get("nombreVia").toString());
+				asseguredHome.setStreetType(((Map)inmuebleDetail.get("inmueble")).get("tipoVia").toString());
+				
+				List<Map<String, Object>> coverages = (List<Map<String, Object>>)i.get("garantias");
+				List<CoverageDTO> coverageList = coverages.stream().map(c -> new CoverageDTO(c.get("descripcion").toString(), 
+						c.get("valorCubierto") != null ? Double.parseDouble(c.get("valorCubierto").toString()): null)).
+						collect(Collectors.toList());
+				insurance.setCoverages(coverageList);
+			
+				insurance.setAsseguredHome(asseguredHome);
+				
+				
+				insurances.add(insurance);
+			});
+		}
+		
 		return insurances;
 	}
 
@@ -143,8 +211,8 @@ public class MutuactivosAdapterImpl implements RobotAdapter {
 		// TODO Auto-generated method stub
 		var insurances = new ArrayList<CarInsuranceDTO>();
 		
-		List<Map<String, Object>> carInsuranceList = globalPositionJsonPath.getList("$");
-		carInsuranceList.stream().
+		List<Map<String, Object>> insurancesList = globalPositionJsonPath.getList("$");
+		insurancesList.stream().
 			filter(c -> c.get("descripcionRamo").toString().contains("AUTOS")).
 			forEach(i -> {
 				String policyNumber = i.get("polizaId").toString();
@@ -175,7 +243,7 @@ public class MutuactivosAdapterImpl implements RobotAdapter {
 				
 				List<Map<String, Object>> coverages = (List<Map<String, Object>>)i.get("garantias");
 				List<CoverageDTO> coverageList = coverages.stream().map(c -> new CoverageDTO(c.get("descripcion").toString(), 
-						Double.parseDouble(c.get("valorCubierto").toString()))).
+						c.get("valorCubierto") != null ? Double.parseDouble(c.get("valorCubierto").toString()): null)).
 						collect(Collectors.toList());
 				
 				var insurance = new CarInsuranceDTO();

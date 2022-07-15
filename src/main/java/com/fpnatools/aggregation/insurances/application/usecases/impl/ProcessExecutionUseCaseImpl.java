@@ -80,6 +80,9 @@ public class ProcessExecutionUseCaseImpl implements ProcessExecutionUseCase {
 				result.setErrorDescription(errorDescription);
 				cacheAdapter.cacheAggregationResult(result);
 				
+				//Closing webdriver
+				robotAdapter.releaseResources();
+				
 				stopWatch.stop();
 				saveExecution(e, status, errorDescription, stopWatch.getTotalTimeSeconds());
 			}

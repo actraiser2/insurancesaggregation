@@ -2,15 +2,10 @@ package com.fpnatools.aggregation.insurances.framework.adapters.robots.impl;
 
 import static io.restassured.RestAssured.given;
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.Driver;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
@@ -25,14 +20,12 @@ import org.springframework.stereotype.Component;
 
 import com.fpnatools.aggregation.insurances.framework.adapters.RobotAdapter;
 import com.fpnatools.aggregation.insurances.framework.adapters.WebDriverAdapter;
-import com.fpnatools.aggregation.insurances.framework.adapters.webDriver.impl.WebDriverAdapterImpl;
 import com.fpnatools.aggregation.insurances.framework.exceptions.GenericAggregationException;
 import com.fpnatools.aggregation.insurances.framework.restAPI.dto.CarInsuranceDTO;
 import com.fpnatools.aggregation.insurances.framework.restAPI.dto.CoverageDTO;
 import com.fpnatools.aggregation.insurances.framework.restAPI.dto.HomeDTO;
 import com.fpnatools.aggregation.insurances.framework.restAPI.dto.HomeInsuranceDTO;
 import com.fpnatools.aggregation.insurances.framework.restAPI.dto.PersonalInformationDTO;
-import com.google.common.io.Files;
 
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -206,17 +199,75 @@ public class CaserAdapterImpl implements RobotAdapter {
 				HomeDTO assuredHome = new HomeDTO();
 				assuredHome.setRawAddress(rawAssuredHome);
 				
-				List<CoverageDTO> coverages = detailDoc.select("#S_P_LISTACAP_LISTABEANS tbody tr").
+
+				//Features house
+				
+				String houseFeaturesUrl1 = StringUtils.substringBetween(
+						detailDoc.select("#caracteristicas-hogar").parents().get(0).attr("onclick"),
+						"llamadaAjaxModalesDetalle('", "'");
+				
+				String houseFeaturesUrl2 = StringUtils.substringBetween(
+						detailDoc.select("#caracteristicas-hogar").parents().get(0).attr("onclick"),
+						"llamadaAjaxModalesDetalle('", "'").replace("actualizar_modelo", "actualizar_nodo");
+				
+				
+				String houseFeaturesDetail1 = webDriverAdapter.getHtmlPost(webDriver, houseFeaturesUrl1, 
+						"nuevoEstado=1&nodo=PREGUNTAS&ruta=%2FGENERICOCLIENTES%2FNUEVO_DETALLE_GENERALES_WC3%2FGENERICO%2FNODOS%2F");
+				//logger.info(houseFeaturesDetail1);
+				
+				String houseFeaturesDetail2 = webDriverAdapter.getHtmlPost(webDriver, houseFeaturesUrl2, 
+						"nuevoEstado=1&nodo=PREGUNTAS&ruta=%2FGENERICOCLIENTES%2FNUEVO_DETALLE_GENERALES_WC3%2FGENERICO%2FNODOS%2F");
+				
+				Document houseFeaturesDoc = Jsoup.parseBodyFragment(houseFeaturesDetail2);
+				houseFeaturesDoc.select("tr.CAS_no_fondo").
 					stream().
-					map(c -> {
-						var coverage = new CoverageDTO();
-						String name = c.select("td:nth-of-type(1)").text();
-						String amount = c.select("td:nth-of-type(2)").text().
+					filter(d -> d.text().contains("AÑO DE CONSTRUCCIÓN")).
+					forEach(d -> {
+						String buildingYear = d.select("td:nth-of-type(2) span.contenidoTablaRes").text();
+						insurance.setConstructionYear(buildingYear);
+					});
+				
+				houseFeaturesDoc.select("tr.CAS_no_fondo").
+					stream().
+					filter(d -> d.text().contains("METROS CUADRADOS CONSTRUIDOS")).
+					limit(1).
+					forEach(d -> {
+						String squareMeters = d.select("td:nth-of-type(2) span.contenidoTablaRes").text();
+						insurance.setSquaredMetres(squareMeters);
+					});
+				
+				houseFeaturesDoc.select("tr.CAS_no_fondo").
+					stream().
+					filter(d -> d.text().contains("TIPO DE VIVIENDA")).
+					forEach(d -> {
+						String houseType = d.select("td:nth-of-type(2) span.contenidoTablaRes").text();
+						insurance.setHouseType(houseType);
+					});
+				
+				//Coberturas
+				String coveragesDetail1 = webDriverAdapter.getHtmlPost(webDriver, houseFeaturesUrl1, 
+						"nodo=ASEGURADOS&ruta=%2FGENERICOCLIENTES%2FNUEVO_DETALLE_GENERALES_WC3%2FGENERICO%2FNODOS%2F");
+				logger.info(coveragesDetail1);
+				
+				String coveragesDetail2 = webDriverAdapter.getHtmlPost(webDriver, houseFeaturesUrl2, 
+						"nuevoEstado=1&nodo=ASEGURADOS&ruta=%2FGENERICOCLIENTES%2FNUEVO_DETALLE_GENERALES_WC3%2FGENERICO%2FNODOS%2F");
+				
+				
+				var coverages = new ArrayList<CoverageDTO>();
+				
+				Document coveragesDoc = Jsoup.parseBodyFragment(coveragesDetail2);
+				coveragesDoc.select("tr.CAS_no_fondo").
+					stream().
+					forEach(d -> {
+						String name = d.select("td:nth-of-type(1) span.contenidoTablaRes").text();
+						String amount = d.select("td:nth-of-type(2) span.contenidoTablaRes").text().
 								replaceAll("[^\\d,]", "").replace(",", ".");
-						coverage.setName(name);
-						coverage.setAmount(Double.parseDouble(amount));
-						return coverage;
-					}).collect(Collectors.toList());
+						
+						var coverage = new CoverageDTO(name, Double.parseDouble(amount));
+						coverages.add(coverage);
+					});
+				
+
 				
 				insurance.setCoverages(coverages);
 				

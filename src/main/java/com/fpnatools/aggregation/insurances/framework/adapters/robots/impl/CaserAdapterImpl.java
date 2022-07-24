@@ -267,8 +267,18 @@ public class CaserAdapterImpl implements RobotAdapter {
 						coverages.add(coverage);
 					});
 				
-
+				///Consulta de recibos
+				String receiptsBody = "S_SEGUROS_GENERALES_radio=" + radioId + "&url_redireccion=group%2Farea-cliente%2Fmis-polizas%2Fconsulta-de-recibos&detalleGeneral=detalle&indexPoliza=";
 				
+				String receiptsDetail = webDriverAdapter.getHtmlPost(webDriver, formularioUrl, receiptsBody);
+				
+				Document receiptsDoc = Jsoup.parseBodyFragment(receiptsDetail);
+				receiptsDoc.select("#lista-recibos #lista-recibos-element-1").
+					stream().
+					forEach(r -> {
+						String premium = r.select(".L_TOTAL_I.L_TOTAL_F").text().replaceAll("[^\\d,]", "").replace(",", ".");
+						insurance.setPremium(Double.parseDouble(premium));
+					});
 				insurance.setCoverages(coverages);
 				
 				insurance.setRecurrence(recurrence);

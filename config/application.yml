@@ -15,6 +15,10 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: http://localhost:9091/oauth2/jwks
+  
+  config:
+    import: optional:configserver:http://localhost:8071
+  
 
 server:
   port: 9090

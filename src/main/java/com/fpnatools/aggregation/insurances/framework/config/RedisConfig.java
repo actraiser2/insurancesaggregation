@@ -7,18 +7,18 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-import com.fpnatools.aggregation.insurances.framework.restAPI.dto.AggregationResultDTO;
+import com.fpnatools.aggregation.insurances.domain.vo.AggregationResult;
 
 @Configuration
 public class RedisConfig {
 
 	@Bean 
-	public RedisTemplate<String, AggregationResultDTO> redisOperations(RedisConnectionFactory factory){
+	public RedisTemplate<String, AggregationResult> redisOperations(RedisConnectionFactory factory){
 		 
-		Jackson2JsonRedisSerializer<AggregationResultDTO> serializer =
-	               new Jackson2JsonRedisSerializer<>(AggregationResultDTO.class);
+		Jackson2JsonRedisSerializer<AggregationResult> serializer =
+	               new Jackson2JsonRedisSerializer<>(AggregationResult.class);
 
-        RedisTemplate<String, AggregationResultDTO> template = new RedisTemplate<>();
+        RedisTemplate<String, AggregationResult> template = new RedisTemplate<>();
         template.setConnectionFactory(factory);
         template.setValueSerializer(serializer);
         template.setKeySerializer(new StringRedisSerializer());

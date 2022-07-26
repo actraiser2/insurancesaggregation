@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.fpnatools.aggregation.insurances.domain.entity.InsuranceCompanyEntity;
-import com.fpnatools.aggregation.insurances.domain.entity.UserEntity;
-import com.fpnatools.aggregation.insurances.framework.repository.InsuranceCompanyRepository;
-import com.fpnatools.aggregation.insurances.framework.repository.UserRepository;
+import com.fpnatools.aggregation.insurances.domain.entity.AppUser;
+import com.fpnatools.aggregation.insurances.domain.entity.InsuranceCompany;
+import com.fpnatools.aggregation.insurances.framework.persistence.repository.InsuranceCompanyRepository;
+import com.fpnatools.aggregation.insurances.framework.persistence.repository.UserRepository;
 
 @Configuration
 public class StartupConfig {
@@ -27,19 +27,19 @@ public class StartupConfig {
 			logger.info("Initialing startup logic:" + env.getProperty("spring.application.name"));
 			
 			if (insuranceCompanyRepository.count() == 0) {
-				var mapfreEntity = new InsuranceCompanyEntity();
+				var mapfreEntity = new InsuranceCompany();
 				mapfreEntity.setName("Mapfre");
 				
-				var lineaDirectaEntity = new InsuranceCompanyEntity();
+				var lineaDirectaEntity = new InsuranceCompany();
 				lineaDirectaEntity.setName("LineaDirecta");
 				
-				var mutuactivosEntity = new InsuranceCompanyEntity();
+				var mutuactivosEntity = new InsuranceCompany();
 				mutuactivosEntity.setName("Mutuactivos");
 				
-				var allianzEntity = new InsuranceCompanyEntity();
+				var allianzEntity = new InsuranceCompany();
 				allianzEntity.setName("Allianz");
 				
-				var axaEntity = new InsuranceCompanyEntity();
+				var axaEntity = new InsuranceCompany();
 				allianzEntity.setName("Axa");
 				
 				
@@ -52,7 +52,7 @@ public class StartupConfig {
 			}
 			
 			if (userRepository.count() == 0) {
-				var userEntity = new UserEntity();
+				var userEntity = new AppUser();
 				userEntity.setAppUser("admin");
 				userEntity.setPassword(passwordEncoder.encode("4dm1n"));
 				userEntity.setRoleName("ADMIN");

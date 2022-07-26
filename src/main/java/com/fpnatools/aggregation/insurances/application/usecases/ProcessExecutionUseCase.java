@@ -1,9 +1,9 @@
 package com.fpnatools.aggregation.insurances.application.usecases;
 
-import com.fpnatools.aggregation.insurances.framework.restAPI.dto.ExecutionRequestDTO;
+import com.fpnatools.aggregation.insurances.framework.adapters.input.dto.ExecutionDTO;
 
 public interface ProcessExecutionUseCase {
 
-	public void processExecution(ExecutionRequestDTO execution);
+	public void processExecution(ExecutionDTO execution);
 	
 }

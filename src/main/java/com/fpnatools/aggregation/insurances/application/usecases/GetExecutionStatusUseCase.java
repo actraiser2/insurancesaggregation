@@ -1,8 +1,8 @@
 package com.fpnatools.aggregation.insurances.application.usecases;
 
-import com.fpnatools.aggregation.insurances.framework.restAPI.dto.AggregationResultDTO;
+import com.fpnatools.aggregation.insurances.domain.vo.AggregationResult;
 
 public interface GetExecutionStatusUseCase {
 
-	public AggregationResultDTO getExecutionStatus(Long executionId);
+	public AggregationResult getExecutionStatus(Long executionId);
 }

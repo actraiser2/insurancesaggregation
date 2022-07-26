@@ -14,10 +14,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import com.fpnatools.aggregation.insurances.domain.entity.UserEntity;
-import com.fpnatools.aggregation.insurances.framework.repository.UserRepository;
+import com.fpnatools.aggregation.insurances.domain.entity.AppUser;
+import com.fpnatools.aggregation.insurances.framework.persistence.repository.UserRepository;
 
 @Configuration
 public class SecurityConfig {
@@ -44,7 +43,7 @@ public class SecurityConfig {
 	@Bean
 	public UserDetailsService userDetailsService(UserRepository userRepository) {
 		return appUser -> {
-			Optional<UserEntity> user = userRepository.findByAppUser(appUser);
+			Optional<AppUser> user = userRepository.findByAppUser(appUser);
 			
 			if (user.isPresent()) {
 				UserDetails userDetails = User.withUsername(appUser)

@@ -2,8 +2,6 @@ package com.fpnatools.aggregation.insurances.application.ports.input;
 
 import java.util.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.cloud.sleuth.Tracer;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
@@ -23,9 +21,11 @@ import com.fpnatools.aggregation.insurances.framework.persistence.repository.Ins
 import com.fpnatools.aggregation.insurances.framework.persistence.repository.UserRepository;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
 @Service
 @AllArgsConstructor
+@Log4j2
 public class CreateExecutionInputPort implements CreateExecutionUseCase {
 
 	private ExecutionRepository executionRepository;
@@ -34,7 +34,6 @@ public class CreateExecutionInputPort implements CreateExecutionUseCase {
 	private MessageChannel executionsChannel;
 	private CacheOutputPort cacheAdapter;
 	private Tracer tracer;
-	private static Logger logger = LoggerFactory.getLogger(CreateExecutionInputPort.class);
 	
 	
 	@Override

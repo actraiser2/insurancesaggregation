@@ -11,8 +11,6 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -27,12 +25,13 @@ import com.fpnatools.aggregation.insurances.framework.exceptions.GenericAggregat
 import io.reactivex.rxjava3.core.Observable;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import lombok.extern.log4j.Log4j2;
 
 @Component
 @Scope("prototype")
+@Log4j2
 public class AxaAdapter implements RobotOutputPort {
 
-	private Logger logger = LoggerFactory.getLogger(AxaAdapter.class);
 	private String baseUrl;
 	private String accessToken;
 	private String version;
@@ -324,7 +323,7 @@ public class AxaAdapter implements RobotOutputPort {
 			 
 				}
 				catch(Exception ex) {
-					logger.error("Error parsing pdf Axa:", ex);
+					log.error("Error parsing pdf Axa:", ex);
 				}
 
 				
@@ -482,7 +481,7 @@ public class AxaAdapter implements RobotOutputPort {
 			
 				}
 				catch(Exception ex) {
-					logger.error("Error parsing pdf Axa:", ex);
+					log.error("Error parsing pdf Axa:", ex);
 				}
 				
 				

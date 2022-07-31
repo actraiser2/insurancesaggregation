@@ -23,9 +23,11 @@ import com.fpnatools.aggregation.insurances.framework.exceptions.GenericAggregat
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import lombok.extern.log4j.Log4j2;
 
 @Component("MutuactivosAdapter")
 @Scope("prototype")
+@Log4j2
 public class MutuactivosAdapter implements RobotOutputPort {
 
 	private String baseUrl;

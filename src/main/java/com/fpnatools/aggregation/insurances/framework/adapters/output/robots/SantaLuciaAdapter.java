@@ -11,18 +11,14 @@ import java.util.UUID;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.bouncycastle.jcajce.provider.asymmetric.rsa.DigestSignatureSpi.SHA256;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.fpnatools.aggregation.insurances.application.ports.output.RobotOutputPort;
-import com.fpnatools.aggregation.insurances.application.ports.output.WebDriverOutputPort;
 import com.fpnatools.aggregation.insurances.domain.vo.CarInsurance;
 import com.fpnatools.aggregation.insurances.domain.vo.Coverage;
 import com.fpnatools.aggregation.insurances.domain.vo.Home;
@@ -33,12 +29,13 @@ import com.fpnatools.aggregation.insurances.framework.exceptions.GenericAggregat
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import lombok.extern.log4j.Log4j2;
 
 @Component("SantaLuciaAdapter")
 @Scope("prototype")
+@Log4j2
 public class SantaLuciaAdapter implements RobotOutputPort {
 
-	private Logger logger = LoggerFactory.getLogger(SantaLuciaAdapter.class);
 	private String accessToken;
 	private JsonPath globalPositionJsonPath;
 	

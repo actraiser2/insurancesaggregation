@@ -23,9 +23,11 @@ import com.fpnatools.aggregation.insurances.framework.exceptions.GenericAggregat
 
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import lombok.extern.log4j.Log4j2;
 
 @Component("GeneraliAdapter")
 @Scope("prototype")
+@Log4j2
 public class GeneraliAdapter implements RobotOutputPort {
 
 	private String baseUrl;

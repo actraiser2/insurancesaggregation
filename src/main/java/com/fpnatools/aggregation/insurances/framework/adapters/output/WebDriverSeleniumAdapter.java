@@ -15,28 +15,28 @@ import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.Augmenter;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.fpnatools.aggregation.insurances.application.ports.output.WebDriverOutputPort;
 
+import lombok.extern.log4j.Log4j2;
+
 @Component
+@Log4j2
 public class WebDriverSeleniumAdapter implements WebDriverOutputPort {
 
-	private Logger logger = LoggerFactory.getLogger(WebDriverSeleniumAdapter.class);
 	private @Value("${selenium.grid.url}") String gridServerUrl;
 	
 	@Override
 	public WebDriver getInstance(String endpoint) {
 		// TODO Auto-generated method stub
-		ChromeOptions options = new ChromeOptions();
+		FirefoxOptions options = new FirefoxOptions();
 		options.setPageLoadStrategy(PageLoadStrategy.EAGER);
 		options.setHeadless(true);
-		logger.info(endpoint);
+		log.info(endpoint);
 		WebDriver driver = null;
 		try {
 			driver = new RemoteWebDriver(new URL(gridServerUrl), options);
@@ -65,7 +65,7 @@ public class WebDriverSeleniumAdapter implements WebDriverOutputPort {
 			Files.move(sourceFile.toPath(), targetFile, StandardCopyOption.REPLACE_EXISTING);
 		}
 		catch(Exception ex) {
-			logger.error("Error taking screenshot:", ex);
+			log.error("Error taking screenshot:", ex);
 		}
 	}
 

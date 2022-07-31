@@ -10,8 +10,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -25,12 +23,13 @@ import com.fpnatools.aggregation.insurances.framework.exceptions.GenericAggregat
 
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import lombok.extern.log4j.Log4j2;
 
 @Component("LineaDirectaAdapter")
 @Scope("prototype")
+@Log4j2
 public class LineaDirectaAdapter implements RobotOutputPort {
 
-	private static Logger logger = LoggerFactory.getLogger(LineaDirectaAdapter.class);
 	private String baseUrl;
 	protected String app = "ENRUTA";
 	private String sessionToken;

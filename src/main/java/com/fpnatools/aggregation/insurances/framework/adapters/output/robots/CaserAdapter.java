@@ -29,17 +29,18 @@ import com.fpnatools.aggregation.insurances.framework.exceptions.GenericAggregat
 
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import lombok.extern.log4j.Log4j2;
 
 @Component("CaserAdapter")
 @Scope("prototype")
+@Log4j2
 public class CaserAdapter implements RobotOutputPort {
 
 	@Autowired WebDriverOutputPort webDriverAdapter;
 	private String baseUrl;
 	private WebDriver webDriver;
 	private String username;
-	
-	private Logger logger = LoggerFactory.getLogger(CaserAdapter.class);
+
 	
 	@Override
 	public boolean login(Map<String, String> credentials) {
@@ -90,7 +91,7 @@ public class CaserAdapter implements RobotOutputPort {
 				webDriver = webDriverAdapter.getInstance(baseUrl + "/acceso-app?n=" + username + "&t=" + superToken);
 				
 				try {
-					Thread.sleep(10000);
+					Thread.sleep(15000);
 				} catch (InterruptedException e) {}
 				
 				webDriver.findElement(By.id("consent_prompt_submit")).click();
@@ -166,7 +167,7 @@ public class CaserAdapter implements RobotOutputPort {
 		
 		String formularioUrl = doc.select("#formulario").attr("action");
 		
-		logger.info(formularioUrl);
+		log.info(formularioUrl);
 		
 		doc.select("div[id=S_SEGUROS_GENERALES_div]").
 			stream().
@@ -247,7 +248,7 @@ public class CaserAdapter implements RobotOutputPort {
 				//Coberturas
 				String coveragesDetail1 = webDriverAdapter.getHtmlPost(webDriver, houseFeaturesUrl1, 
 						"nodo=ASEGURADOS&ruta=%2FGENERICOCLIENTES%2FNUEVO_DETALLE_GENERALES_WC3%2FGENERICO%2FNODOS%2F");
-				logger.info(coveragesDetail1);
+				log.info(coveragesDetail1);
 				
 				String coveragesDetail2 = webDriverAdapter.getHtmlPost(webDriver, houseFeaturesUrl2, 
 						"nuevoEstado=1&nodo=ASEGURADOS&ruta=%2FGENERICOCLIENTES%2FNUEVO_DETALLE_GENERALES_WC3%2FGENERICO%2FNODOS%2F");
@@ -301,12 +302,12 @@ public class CaserAdapter implements RobotOutputPort {
 	public void releaseResources() {
 		// TODO Auto-generated method stub
 		try {
-			logger.info("Closing WebDriver");
+			log.info("Closing WebDriver");
 			webDriver.close();
 			webDriver.quit();
 		}
 		catch(Exception ex) {
-			logger.error("Error closing webdriver");
+			log.error("Error closing webdriver");
 		}
 	}
 	

@@ -13,8 +13,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -29,12 +27,13 @@ import com.fpnatools.aggregation.insurances.framework.exceptions.GenericAggregat
 import io.reactivex.rxjava3.core.Observable;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import lombok.extern.log4j.Log4j2;
 
 @Component("AllianzAdapter")
 @Scope("prototype")
+@Log4j2
 public class AllianzAdapter implements RobotOutputPort {
 
-	private static Logger logger = LoggerFactory.getLogger(AllianzAdapter.class);
 	private String baseUrl;
 	private String drcw08SessionId;
 	private String drmb02SessionId;
@@ -270,7 +269,7 @@ public class AllianzAdapter implements RobotOutputPort {
 					
 					//logger.info(pdfText);
 				} catch (IOException ex) {
-					logger.error("Error parsing pdf allianz:", ex);
+					log.error("Error parsing pdf allianz:", ex);
 				}
 				
 				
@@ -331,7 +330,7 @@ public class AllianzAdapter implements RobotOutputPort {
 						
 					}
 					catch (IOException ex) {
-						logger.error("Error parsing pdf allianz:", ex);
+						log.error("Error parsing pdf allianz:", ex);
 					}
 				}
 				

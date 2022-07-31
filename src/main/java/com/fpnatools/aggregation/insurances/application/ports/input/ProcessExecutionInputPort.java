@@ -5,8 +5,6 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StopWatch;
@@ -21,13 +19,13 @@ import com.fpnatools.aggregation.insurances.framework.adapters.input.dto.Executi
 import com.fpnatools.aggregation.insurances.framework.persistence.repository.ExecutionRepository;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
 @Service("ProcessExecutionUseCase")
 @AllArgsConstructor
+@Log4j2
 public class ProcessExecutionInputPort implements ProcessExecutionUseCase {
 
-	private static Logger logger = LoggerFactory.getLogger(ProcessExecutionInputPort.class);
-	
 	private ApplicationContext applicationContext;
 	private ExecutionRepository executionRepository;
 	private CacheOutputPort cacheAdapter;
@@ -44,7 +42,7 @@ public class ProcessExecutionInputPort implements ProcessExecutionUseCase {
 		Optional<Execution> executionEntity = executionRepository.
 				findById(execution.getExecutionId());
 		executionEntity.ifPresent(e -> {
-			logger.info("Processing new execution:" + execution);
+			log.info("Processing new execution:" + execution);
 			
 			StopWatch stopWatch = new StopWatch();
 			stopWatch.start();
@@ -72,7 +70,7 @@ public class ProcessExecutionInputPort implements ProcessExecutionUseCase {
 				
 			}
 			catch(Exception ex) {
-				logger.error("Error in " + execution.getEntityName() + ":", ex);
+				log.error("Error in " + execution.getEntityName() + ":", ex);
 				status = ExecutionStatus.EXECUTION_FAILED;
 				errorDescription = ex.getClass() + " => " + ex.getMessage();
 			}
@@ -87,7 +85,7 @@ public class ProcessExecutionInputPort implements ProcessExecutionUseCase {
 				stopWatch.stop();
 				saveExecution(e, status, errorDescription, stopWatch.getTotalTimeSeconds());
 			}
-			logger.info("Execution " + execution.getExecutionId() + " finished:" + status + " =>" +
+			log.info("Execution " + execution.getExecutionId() + " finished:" + status + " =>" +
 					stopWatch.getTotalTimeSeconds() + " Seconds");
 			
 		});

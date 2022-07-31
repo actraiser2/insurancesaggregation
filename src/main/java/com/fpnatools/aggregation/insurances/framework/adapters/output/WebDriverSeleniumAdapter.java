@@ -15,6 +15,7 @@ import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,14 +37,14 @@ public class WebDriverSeleniumAdapter implements WebDriverOutputPort {
 		options.setPageLoadStrategy(PageLoadStrategy.EAGER);
 		options.setHeadless(true);
 		logger.info(endpoint);
-		RemoteWebDriver driver = null;
+		WebDriver driver = null;
 		try {
 			driver = new RemoteWebDriver(new URL(gridServerUrl), options);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		//driver = new Augmenter().augment(driver);
 		driver.manage().timeouts().scriptTimeout(Duration.ofSeconds(30)).
 			pageLoadTimeout(Duration.ofSeconds(30)).implicitlyWait(Duration.ofSeconds(8));
 		

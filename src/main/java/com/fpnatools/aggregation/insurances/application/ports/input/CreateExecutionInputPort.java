@@ -14,18 +14,18 @@ import com.fpnatools.aggregation.insurances.domain.entity.Execution;
 import com.fpnatools.aggregation.insurances.domain.entity.InsuranceCompany;
 import com.fpnatools.aggregation.insurances.domain.vo.AggregationResult;
 import com.fpnatools.aggregation.insurances.domain.vo.ExecutionStatus;
-import com.fpnatools.aggregation.insurances.framework.adapters.input.dto.ExecutionDTO;
+import com.fpnatools.aggregation.insurances.framework.adapters.input.dto.ExecutionRequestDTO;
 import com.fpnatools.aggregation.insurances.framework.exceptions.InsuranceCompanyNotFoundException;
 import com.fpnatools.aggregation.insurances.framework.persistence.repository.ExecutionRepository;
 import com.fpnatools.aggregation.insurances.framework.persistence.repository.InsuranceCompanyRepository;
 import com.fpnatools.aggregation.insurances.framework.persistence.repository.UserRepository;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @AllArgsConstructor
-@Log4j2
+@Slf4j
 public class CreateExecutionInputPort implements CreateExecutionUseCase {
 
 	private ExecutionRepository executionRepository;
@@ -37,11 +37,13 @@ public class CreateExecutionInputPort implements CreateExecutionUseCase {
 	
 	
 	@Override
-	public Long createExecution(String appUser, ExecutionDTO executionDTO) {
+	public Long createExecution(String appUser, ExecutionRequestDTO executionDTO) {
 		// TODO Auto-generated method stub
 		AppUser userEntity = userRepository.findByAppUser(appUser).get();
 		Optional<InsuranceCompany> insuranceCompanyEntity = insuranceCompanyRepository.findByName(executionDTO.getEntityName());
 		
+		log.info("New request for " + executionDTO.getEntityName());
+
 		if (insuranceCompanyEntity.isPresent()) {
 			Execution executionEntity = new Execution();
 			executionEntity.setExecutionStatus(ExecutionStatus.ONGOING);

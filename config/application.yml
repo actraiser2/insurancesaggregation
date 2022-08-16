@@ -3,6 +3,9 @@ spring:
     url: jdbc:postgresql://localhost:5432/aggregation_insurances
     username: root
     password: root
+    hikari:
+      maximum-pool-size: 10
+      connection-test-query: select 1
   jpa:
     hibernate:
       ddl-auto: update
@@ -19,6 +22,7 @@ spring:
 
 server:
   port: 9090
+  shutdown: graceful
   
 selenium:
   grid:

@@ -37,6 +37,10 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-integration</artifactId>
 		</dependency>
 		<dependency>
@@ -45,7 +49,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 		
 		<dependency> 
@@ -102,6 +106,12 @@
     		<scope>runtime</scope>
 		</dependency>
 		
+		<dependency>
+    		<groupId>com.h2database</groupId>
+    		<artifactId>h2</artifactId>
+    		<scope>test</scope>
+		</dependency>
+		
 		
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -119,10 +129,17 @@
 			<artifactId>spring-integration-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		
 		<dependency>
@@ -156,22 +173,14 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<image>
-						<name>actraiser/insurances-aggregation:${project.version}</name>
-						<publish>true</publish>
-						<env>
-                            <BPE_DELIM_JAVA_TOOL_OPTIONS xml:space="preserve"> </BPE_DELIM_JAVA_TOOL_OPTIONS>
-                            <BPE_APPEND_JAVA_TOOL_OPTIONS>-Xmx500M</BPE_APPEND_JAVA_TOOL_OPTIONS>
-                        </env>
-					</image>
-					<docker>
-						<publishRegistry>
-							<username>actraiser</username>
-							<password>fenix000</password>
-						</publishRegistry>
-					</docker>
-				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>build-info</goal>
+						</goals>
+					</execution>
+				</executions>
+					
 			</plugin>
 			
 			<plugin>
@@ -190,6 +199,12 @@
 		        		<jvmFlags>-Xmx512M</jvmFlags>
 		        	</container>
 		        </configuration>
+		    </plugin>
+		    
+		    <plugin>
+		   		<groupId>com.josemi.plugins</groupId>
+		        <artifactId>displayInfo</artifactId>
+		        <version>1.0.0</version>
 		    </plugin>
 		</plugins>
 	</build>

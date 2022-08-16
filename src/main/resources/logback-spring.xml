@@ -3,12 +3,12 @@
 
 
     <springProperty scope="context" name="appName" source="spring.application.name"/>
-    <springProperty scope="context" name="appVersion" source="app.version"/>
+    <springProperty scope="context" name="appVersion" source="info.app.version"/>
 
     <appender name="Console"
         class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
-             <Pattern> %d [%t] %p %c{15} [${appName}, ${appVersion}, %X{traceId:-0}, %X{ spanId:-0}] %m%n</Pattern>
+             <Pattern> %d [%t] %magenta(%p) %c{15} [${appName}, ${appVersion}, %X{traceId:-0}, %X{ spanId:-0}] %boldCyan(%m%n)</Pattern>
         </layout>
     </appender>
 
@@ -17,7 +17,7 @@
         <file>/var/log/insuranceAggregation/insurance_aggregation.log</file>
         <encoder
             class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <Pattern> %d [%t] %p %c{15} [${appName} ,${appVersion}, %X{traceId:-0}, %X{ spanId:-0}] %m%n</Pattern>
+            <Pattern> %d [%t] %magenta(%p) %c{15} [${appName} ,${appVersion}, %X{traceId:-0}, %X{ spanId:-0}] %m%n</Pattern>
         </encoder>
 
         <rollingPolicy

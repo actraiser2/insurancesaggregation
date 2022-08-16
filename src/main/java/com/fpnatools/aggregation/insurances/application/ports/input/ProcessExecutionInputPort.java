@@ -15,7 +15,7 @@ import com.fpnatools.aggregation.insurances.application.usecases.ProcessExecutio
 import com.fpnatools.aggregation.insurances.domain.entity.Execution;
 import com.fpnatools.aggregation.insurances.domain.vo.AggregationResult;
 import com.fpnatools.aggregation.insurances.domain.vo.ExecutionStatus;
-import com.fpnatools.aggregation.insurances.framework.adapters.input.dto.ExecutionDTO;
+import com.fpnatools.aggregation.insurances.framework.adapters.input.dto.ExecutionRequestDTO;
 import com.fpnatools.aggregation.insurances.framework.persistence.repository.ExecutionRepository;
 
 import lombok.AllArgsConstructor;
@@ -32,7 +32,7 @@ public class ProcessExecutionInputPort implements ProcessExecutionUseCase {
 	
 	@Override
 	@Transactional
-	public void processExecution(ExecutionDTO execution) {
+	public void processExecution(ExecutionRequestDTO execution) {
 		// TODO Auto-generated method stub
 		
 		

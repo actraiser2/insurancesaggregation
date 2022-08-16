@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class InsurancesAggregationApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(InsurancesAggregationApplication.class, args);
+		SpringApplication app = new SpringApplication(InsurancesAggregationApplication.class);
+		app.setLogStartupInfo(true);
+		app.run(args);
 	}
 
 }

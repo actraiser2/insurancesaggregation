@@ -42,7 +42,7 @@ spec:
           - name: shared-folder
             mountPath: /git
       containers:
-      - image: actraiser/insurances-aggregation:1.0.4
+      - image: actraiser/insurances-aggregation:1.0.5
         name: insurances-aggregation
         imagePullPolicy: Always
         envFrom: 

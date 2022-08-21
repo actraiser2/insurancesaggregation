@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.fpnatools.aggregation</groupId>
 	<artifactId>insurances</artifactId>
-	<version>1.0.2</version>
+	<version>1.0.4</version>
 	<name>InsurancesAggregation</name>
 	<description>Project for aggregating insurances</description>
 	<properties>
@@ -197,6 +197,7 @@
 		        	</to>
 		        	<container>
 		        		<jvmFlags>-Xmx512M</jvmFlags>
+		        		<mainClass>com.fpnatools.aggregation.insurances.InsurancesAggregationApplication</mainClass>
 		        	</container>
 		        </configuration>
 		    </plugin>

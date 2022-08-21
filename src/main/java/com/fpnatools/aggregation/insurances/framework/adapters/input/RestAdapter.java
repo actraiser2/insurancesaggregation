@@ -1,7 +1,12 @@
 package com.fpnatools.aggregation.insurances.framework.adapters.input;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import javax.validation.Valid;
 
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.security.core.Authentication;
@@ -23,6 +28,7 @@ import com.fpnatools.aggregation.insurances.framework.adapters.input.dto.Executi
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.models.Paths;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
@@ -40,6 +46,7 @@ public class RestAdapter {
 
 	private CreateExecutionUseCase createExecutionUseCase;
 	private GetExecutionStatusUseCase getExecutionStatusUseCase;
+	private Environment env;
 	
 	@PostMapping
 	public Mono<ResponseEntity<ExecutionResponseDTO>> createExecution(@Valid @RequestBody ExecutionRequestDTO execution, Authentication auth) {
@@ -57,8 +64,10 @@ public class RestAdapter {
 	}
 	
 	@GetMapping(value = "/echo", headers={"X-Api-Version=v1"})
-	public Flux<String>echo(JwtAuthenticationToken auth) throws InterruptedException {
-		log.info("before -> cALLING METHOD ECHO ");
+	public Flux<String>echo(JwtAuthenticationToken auth) throws InterruptedException, IOException {
+		String basePathCertificates = env.getProperty("certificates.path", "/certificates");
+		log.info("before -> cALLING METHOD ECHO:" + 
+				Files.size(Path.of(basePathCertificates, "finreach.jks")) + " bytes");
 		
 		HttpClient httpClient = HttpClient.create().
 	            tcpConfiguration(tcpClient -> tcpClient
@@ -69,17 +78,11 @@ public class RestAdapter {
 	ReactorClientHttpConnector connector = new ReactorClientHttpConnector(httpClient);
 
 
-		WebClient client = WebClient.builder().baseUrl("http://www.google.es").
+		WebClient client = WebClient.builder().baseUrl("https://www.google.es").
 				defaultHeader("Authorization", "Bearer aaaaa").
-				clientConnector(connector).
+				//clientConnector(connector).
 				build();
-		/*return client.get().uri("prueba").
-				retrieve().
-				onStatus(h -> h.is4xxClientError(), r -> Mono.just(new GenericAggregationException(""))).
-				bodyToMono(String.class).
-				
-				doOnNext(log::info).
-				timeout(Duration.ofSeconds(1));*/
+		
 		
 		return client.get().exchangeToFlux(r -> {
 			log.info("Status:" + r.statusCode());

@@ -23,6 +23,9 @@ spec:
       volumes:
         - name: shared-folder
           emptyDir: {}
+        - name: certificates-folder
+          configMap:
+            name: insurances-aggregation-cm-binary
       initContainers:
       - name: clone-repository
         image: bitnami/git
@@ -30,9 +33,16 @@ spec:
         command: ["/opt/bitnami/git/bin/git", "clone", "https://jmbesada:5yxYwfcDdXAhxxWFrhtf@bitbucket.org/jmbesada/insurancesaggregation.git"]
         volumeMounts:
           - name: shared-folder
+            mountPath: /git/
+      - name: build-image
+        image: maven:3.8.6-openjdk-18
+        command: ["mvn", "package", "jib:build"]
+        workingDir: /git/insurancesaggregation
+        volumeMounts:
+          - name: shared-folder
             mountPath: /git
       containers:
-      - image: actraiser/insurances-aggregation:1.0.2
+      - image: actraiser/insurances-aggregation:1.0.4
         name: insurances-aggregation
         imagePullPolicy: Always
         envFrom: 
@@ -40,5 +50,7 @@ spec:
               name: insurances-aggregation-cm
         volumeMounts:
           - name: shared-folder
-            mountPath: /git    
+            mountPath: /git
+          - name: certificates-folder
+            mountPath: /certificates    
 status: {}

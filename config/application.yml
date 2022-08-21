@@ -27,3 +27,6 @@ server:
 selenium:
   grid:
     url: http://localhost:4444
+    
+certificates:
+  path: ./config/keystores

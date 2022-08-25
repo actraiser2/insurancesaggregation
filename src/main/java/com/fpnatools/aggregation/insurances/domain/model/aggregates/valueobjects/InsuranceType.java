@@ -1,4 +1,4 @@
-package com.fpnatools.aggregation.insurances.domain.vo.enums;
+package com.fpnatools.aggregation.insurances.domain.model.aggregates.valueobjects;
 
 public enum InsuranceType {
 	SAVING_INSURANCE, LIFE_INSURANCE, HEALTH_INSURANCE, PROPERTY_INSURANCE, 

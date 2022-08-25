@@ -21,14 +21,13 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import com.fpnatools.aggregation.insurances.application.usecases.CreateExecutionUseCase;
 import com.fpnatools.aggregation.insurances.application.usecases.GetExecutionStatusUseCase;
-import com.fpnatools.aggregation.insurances.domain.vo.AggregationResult;
-import com.fpnatools.aggregation.insurances.framework.adapters.input.dto.ExecutionRequestDTO;
+import com.fpnatools.aggregation.insurances.domain.commands.CreateExecutionCommand;
+import com.fpnatools.aggregation.insurances.domain.model.aggregates.valueobjects.AggregationResult;
 import com.fpnatools.aggregation.insurances.framework.adapters.input.dto.ExecutionResponseDTO;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import io.swagger.v3.oas.models.Paths;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
@@ -49,9 +48,9 @@ public class RestAdapter {
 	private Environment env;
 	
 	@PostMapping
-	public Mono<ResponseEntity<ExecutionResponseDTO>> createExecution(@Valid @RequestBody ExecutionRequestDTO execution, Authentication auth) {
+	public Mono<ResponseEntity<ExecutionResponseDTO>> createExecution(@Valid @RequestBody CreateExecutionCommand command, Authentication auth) {
 		log.info("Creating execution ");
-		Long executionId = createExecutionUseCase.createExecution(auth.getName(), execution);
+		Long executionId = createExecutionUseCase.createExecution(auth.getName(), command);
 		return Mono.just(ResponseEntity.status(201).body(new ExecutionResponseDTO(executionId)));
 	}
 	

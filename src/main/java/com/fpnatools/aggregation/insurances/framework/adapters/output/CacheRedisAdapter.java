@@ -6,7 +6,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import com.fpnatools.aggregation.insurances.application.ports.output.CacheOutputPort;
-import com.fpnatools.aggregation.insurances.domain.vo.AggregationResult;
+import com.fpnatools.aggregation.insurances.domain.model.aggregates.valueobjects.AggregationResult;
 
 import lombok.AllArgsConstructor;
 

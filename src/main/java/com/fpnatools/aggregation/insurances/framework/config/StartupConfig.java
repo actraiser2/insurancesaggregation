@@ -10,8 +10,8 @@ import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.fpnatools.aggregation.insurances.domain.entity.AppUser;
-import com.fpnatools.aggregation.insurances.domain.entity.InsuranceCompany;
+import com.fpnatools.aggregation.insurances.domain.model.entities.AppUser;
+import com.fpnatools.aggregation.insurances.domain.model.entities.InsuranceCompany;
 import com.fpnatools.aggregation.insurances.framework.persistence.repository.InsuranceCompanyRepository;
 import com.fpnatools.aggregation.insurances.framework.persistence.repository.UserRepository;
 

@@ -4,9 +4,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
-import com.fpnatools.aggregation.insurances.domain.vo.CarInsurance;
-import com.fpnatools.aggregation.insurances.domain.vo.HomeInsurance;
-import com.fpnatools.aggregation.insurances.domain.vo.PersonalInformation;
+import com.fpnatools.aggregation.insurances.domain.model.aggregates.valueobjects.CarInsurance;
+import com.fpnatools.aggregation.insurances.domain.model.aggregates.valueobjects.HomeInsurance;
+import com.fpnatools.aggregation.insurances.domain.model.aggregates.valueobjects.PersonalInformation;
 
 public interface RobotOutputPort {
 

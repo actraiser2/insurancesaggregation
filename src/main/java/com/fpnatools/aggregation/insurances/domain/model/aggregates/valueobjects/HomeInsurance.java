@@ -1,4 +1,4 @@
-package com.fpnatools.aggregation.insurances.domain.vo;
+package com.fpnatools.aggregation.insurances.domain.model.aggregates.valueobjects;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

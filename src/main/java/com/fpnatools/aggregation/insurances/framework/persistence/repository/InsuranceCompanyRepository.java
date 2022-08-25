@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.fpnatools.aggregation.insurances.domain.entity.InsuranceCompany;
+import com.fpnatools.aggregation.insurances.domain.model.entities.InsuranceCompany;
 
 public interface InsuranceCompanyRepository extends JpaRepository<InsuranceCompany, Long> {
 

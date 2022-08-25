@@ -15,11 +15,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.fpnatools.aggregation.insurances.application.ports.output.RobotOutputPort;
-import com.fpnatools.aggregation.insurances.domain.vo.CarInsurance;
-import com.fpnatools.aggregation.insurances.domain.vo.Coverage;
-import com.fpnatools.aggregation.insurances.domain.vo.Home;
-import com.fpnatools.aggregation.insurances.domain.vo.HomeInsurance;
-import com.fpnatools.aggregation.insurances.domain.vo.PersonalInformation;
+import com.fpnatools.aggregation.insurances.domain.model.aggregates.valueobjects.CarInsurance;
+import com.fpnatools.aggregation.insurances.domain.model.aggregates.valueobjects.Coverage;
+import com.fpnatools.aggregation.insurances.domain.model.aggregates.valueobjects.Home;
+import com.fpnatools.aggregation.insurances.domain.model.aggregates.valueobjects.HomeInsurance;
+import com.fpnatools.aggregation.insurances.domain.model.aggregates.valueobjects.PersonalInformation;
 import com.fpnatools.aggregation.insurances.framework.exceptions.GenericAggregationException;
 
 import io.reactivex.rxjava3.core.Observable;

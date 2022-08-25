@@ -2,6 +2,8 @@ package com.fpnatools.aggregation.insurances.application.ports.input;
 
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.cloud.sleuth.Tracer;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
@@ -9,12 +11,12 @@ import org.springframework.stereotype.Service;
 
 import com.fpnatools.aggregation.insurances.application.ports.output.CacheOutputPort;
 import com.fpnatools.aggregation.insurances.application.usecases.CreateExecutionUseCase;
-import com.fpnatools.aggregation.insurances.domain.entity.AppUser;
-import com.fpnatools.aggregation.insurances.domain.entity.Execution;
-import com.fpnatools.aggregation.insurances.domain.entity.InsuranceCompany;
-import com.fpnatools.aggregation.insurances.domain.vo.AggregationResult;
-import com.fpnatools.aggregation.insurances.domain.vo.ExecutionStatus;
-import com.fpnatools.aggregation.insurances.framework.adapters.input.dto.ExecutionRequestDTO;
+import com.fpnatools.aggregation.insurances.domain.commands.CreateExecutionCommand;
+import com.fpnatools.aggregation.insurances.domain.model.aggregates.Execution;
+import com.fpnatools.aggregation.insurances.domain.model.aggregates.valueobjects.AggregationResult;
+import com.fpnatools.aggregation.insurances.domain.model.aggregates.valueobjects.ExecutionStatus;
+import com.fpnatools.aggregation.insurances.domain.model.entities.AppUser;
+import com.fpnatools.aggregation.insurances.domain.model.entities.InsuranceCompany;
 import com.fpnatools.aggregation.insurances.framework.exceptions.InsuranceCompanyNotFoundException;
 import com.fpnatools.aggregation.insurances.framework.persistence.repository.ExecutionRepository;
 import com.fpnatools.aggregation.insurances.framework.persistence.repository.InsuranceCompanyRepository;
@@ -37,33 +39,28 @@ public class CreateExecutionInputPort implements CreateExecutionUseCase {
 	
 	
 	@Override
-	public Long createExecution(String appUser, ExecutionRequestDTO executionDTO) {
+	@Transactional
+	public Long createExecution(String appUser, CreateExecutionCommand command) {
 		// TODO Auto-generated method stub
 		AppUser userEntity = userRepository.findByAppUser(appUser).get();
-		Optional<InsuranceCompany> insuranceCompanyEntity = insuranceCompanyRepository.findByName(executionDTO.getEntityName());
+		Optional<InsuranceCompany> insuranceCompanyEntity = insuranceCompanyRepository.findByName(command.getEntityName());
 		
-		log.info("New request for " + executionDTO.getEntityName());
+		log.info("New request for " + command.getEntityName());
 
 		if (insuranceCompanyEntity.isPresent()) {
-			Execution executionEntity = new Execution();
-			executionEntity.setExecutionStatus(ExecutionStatus.ONGOING);
-			executionEntity.setUser(userEntity);
-			executionEntity.setUsername(executionDTO.getCredentials().get("username"));
-			executionEntity.setInsuranceCompanyEntity(insuranceCompanyEntity.get());
-			executionEntity.setTraceId(tracer.currentSpan().context().traceId());
+			command.setAppUser(userEntity);
+			command.setInsuranceCompany(insuranceCompanyEntity.get());
+			Execution execution = new Execution(command);
 			
-			executionRepository.save(executionEntity);
+			executionRepository.save(execution);
 			
-			executionDTO.setExecutionId(executionEntity.getId());
-	
-			executionsChannel.send(MessageBuilder.withPayload(executionDTO).build());
-			
+			//sETTING the initial status of the execution as ONGOING for the client
 			var result = new AggregationResult();
-			result.setExecutionId(executionEntity.getId());
+			result.setExecutionId(execution.getId());
 			result.setExecutionStatus(ExecutionStatus.ONGOING);
 			cacheAdapter.cacheAggregationResult(result);
 			
-			return executionEntity.getId();
+			return execution.getId();
 		}
 		else {
 			throw new InsuranceCompanyNotFoundException();

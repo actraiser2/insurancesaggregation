@@ -1,8 +1,8 @@
 package com.fpnatools.aggregation.insurances.application.usecases;
 
-import com.fpnatools.aggregation.insurances.framework.adapters.input.dto.ExecutionRequestDTO;
+import com.fpnatools.aggregation.insurances.domain.commands.CreateExecutionCommand;
 
 public interface CreateExecutionUseCase {
 
-	public Long createExecution(String appUser, ExecutionRequestDTO executionDTO);
+	public Long createExecution(String appUser, CreateExecutionCommand command);
 }

@@ -1,4 +1,4 @@
-package com.fpnatools.aggregation.insurances.domain.vo;
+package com.fpnatools.aggregation.insurances.domain.model.aggregates.valueobjects;
 
 import java.time.LocalDate;
 import java.util.List;

@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
-import com.fpnatools.aggregation.insurances.domain.entity.AppUser;
+import com.fpnatools.aggregation.insurances.domain.model.entities.AppUser;
 import com.fpnatools.aggregation.insurances.framework.persistence.repository.UserRepository;
 
 @Configuration

@@ -33,7 +33,7 @@ spec:
         command: ["/opt/bitnami/git/bin/git", "clone", "https://jmbesada:5yxYwfcDdXAhxxWFrhtf@bitbucket.org/jmbesada/insurancesaggregation.git"]
         volumeMounts:
           - name: shared-folder
-            mountPath: /git/
+            mountPath: /git/ 
       - name: build-image
         image: maven:3.8.6-openjdk-18
         command: ["mvn", "package", "jib:build"]

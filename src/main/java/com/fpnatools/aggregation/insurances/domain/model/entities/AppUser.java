@@ -1,4 +1,4 @@
-package com.fpnatools.aggregation.insurances.domain.entity;
+package com.fpnatools.aggregation.insurances.domain.model.entities;
 
 import java.time.LocalDateTime;
 
@@ -12,17 +12,18 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import lombok.Data;
 
-@Data
 @Entity
-@Table(name = "TB_INSURANCE_COMPANIES")
-public class InsuranceCompany {
+@Table(name = "TB_USERS")
+@Data
+public class AppUser {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long userId;
 	
-	private String name;
-	
+	private String appUser;
+	private String password;
+	private String roleName;
 	@CreationTimestamp
 	private LocalDateTime timestamp;
 }

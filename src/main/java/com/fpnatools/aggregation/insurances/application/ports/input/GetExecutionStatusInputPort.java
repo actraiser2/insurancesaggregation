@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.fpnatools.aggregation.insurances.application.ports.output.CacheOutputPort;
 import com.fpnatools.aggregation.insurances.application.usecases.GetExecutionStatusUseCase;
-import com.fpnatools.aggregation.insurances.domain.vo.AggregationResult;
+import com.fpnatools.aggregation.insurances.domain.model.aggregates.valueobjects.AggregationResult;
 import com.fpnatools.aggregation.insurances.framework.persistence.repository.ExecutionRepository;
 
 import lombok.AllArgsConstructor;

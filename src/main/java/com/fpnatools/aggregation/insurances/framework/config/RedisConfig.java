@@ -7,7 +7,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-import com.fpnatools.aggregation.insurances.domain.vo.AggregationResult;
+import com.fpnatools.aggregation.insurances.domain.model.aggregates.valueobjects.AggregationResult;
 
 @Configuration
 public class RedisConfig {

@@ -1,4 +1,4 @@
-package com.fpnatools.aggregation.insurances.domain.vo;
+package com.fpnatools.aggregation.insurances.domain.model.aggregates.valueobjects;
 
 import java.time.LocalDate;
 
@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import com.fpnatools.aggregation.insurances.domain.vo.enums.CoverType;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

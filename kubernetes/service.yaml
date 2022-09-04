@@ -12,10 +12,9 @@ spec:
     port: 9090
     protocol: TCP
     targetPort: 8080
-    nodePort: 30000
   selector:
     app: insurances-aggregation
     env: dev
-  type: NodePort
+  type: ClusterIP
 status:
   loadBalancer: {}

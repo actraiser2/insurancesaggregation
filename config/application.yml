@@ -18,8 +18,38 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: http://localhost:9091/oauth2/jwks
-  
-
+  kafka:
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    bootstrap-servers:
+      - localhost:9092
+  cloud:
+    consul:
+      host: 192.168.1.19
+      discovery:
+        ip-address: 192.168.1.19
+        prefer-ip-address: true
+        port: 10000
+        health-check-path: /management/health
+    stream:
+      bindings:
+        output-out-0:
+          destination: createdExecutions.topic
+          producer:
+            use-native-encoding: true
+        processor-in-0:
+          destination: createdExecutions.topic
+          group: josemi
+          consumer:
+            concurrency: 4 
+        processor-out-0:
+          destination: createdExecutions-out.topic
+          producer:
+            use-native-encoding: true
+        pollableBean-out-0:
+          destination: createdExecutions-out.topic
+            
+        
 server:
   port: 9090
   shutdown: graceful
@@ -30,3 +60,5 @@ selenium:
     
 certificates:
   path: ./config/keystores
+  
+  

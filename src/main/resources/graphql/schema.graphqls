@@ -1,0 +1,8 @@
+type Query {
+    execution (executionId: Int) : Execution
+}
+
+type Execution{
+	id: ID !
+	companyName: String !
+}

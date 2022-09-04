@@ -36,13 +36,13 @@ spec:
             mountPath: /git/ 
       - name: build-image
         image: maven:3.8.6-openjdk-18
-        command: ["mvn", "package", "jib:build"]
+        command: ["mvn", "clean"]
         workingDir: /git/insurancesaggregation
         volumeMounts:
           - name: shared-folder
             mountPath: /git
       containers:
-      - image: actraiser/insurances-aggregation:1.0.5
+      - image: actraiser/insurances-aggregation:1.0.7
         name: insurances-aggregation
         imagePullPolicy: Always
         envFrom: 
@@ -52,5 +52,12 @@ spec:
           - name: shared-folder
             mountPath: /git
           - name: certificates-folder
-            mountPath: /certificates    
+            mountPath: /certificates
+        livenessProbe:
+          httpGet:
+            path: /managament/health/liveness
+            port: 10000
+          initialDelaySeconds: 10
+          periodSeconds: 120
+              
 status: {}

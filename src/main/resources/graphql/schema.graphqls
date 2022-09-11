@@ -1,8 +1,12 @@
 type Query {
-    execution (executionId: Int) : Execution
+    execution (executionId: Int) : ExecutionGraphQL
 }
 
-type Execution{
+type ExecutionGraphQL{
 	id: ID !
 	companyName: String !
+	executionDate: String !
+	executionStatus: String !
+	username: String !
+	totalDuration: Float
 }

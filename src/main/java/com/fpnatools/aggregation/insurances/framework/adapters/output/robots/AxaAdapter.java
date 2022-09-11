@@ -27,7 +27,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import lombok.extern.log4j.Log4j2;
 
-@Component
+@Component("AxaAdapter")
 @Scope("prototype")
 @Log4j2
 public class AxaAdapter implements RobotOutputPort {

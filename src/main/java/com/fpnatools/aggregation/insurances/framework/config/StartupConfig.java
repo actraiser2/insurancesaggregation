@@ -51,6 +51,9 @@ public class StartupConfig {
 				var santaLuciaEntity = new InsuranceCompany();
 				santaLuciaEntity.setName("Santa Lucia");
 				
+				var zurichEntity = new InsuranceCompany();
+				zurichEntity.setName("Zurich");
+				
 				
 				insuranceCompanyRepository.save(mapfreEntity);
 				insuranceCompanyRepository.save(lineaDirectaEntity);
@@ -59,6 +62,7 @@ public class StartupConfig {
 				insuranceCompanyRepository.save(axaEntity);
 				insuranceCompanyRepository.save(caserEntity);
 				insuranceCompanyRepository.save(santaLuciaEntity);
+				insuranceCompanyRepository.save(zurichEntity);
 			}
 			
 			if (userRepository.count() == 0) {

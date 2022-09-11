@@ -40,7 +40,7 @@ public class MapfreAdapter implements RobotOutputPort {
 	public boolean login(Map<String, String> credentials) {
 		// TODO Auto-generated method stub
 		baseUrl = "https://webservices.mapfre.com/mmobile-core";
-		serviceVersion = "12.4.12";
+		serviceVersion = "12.5.24";
 		
 		String username = credentials.get("username");
 		String password = credentials.get("password");

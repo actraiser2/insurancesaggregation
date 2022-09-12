@@ -22,7 +22,6 @@ spec:
     spec:
       volumes:
         - name: shared-folder
-          emptyDir: {}
         - name: certificates-folder
           configMap:
             name: insurances-aggregation-cm-binary

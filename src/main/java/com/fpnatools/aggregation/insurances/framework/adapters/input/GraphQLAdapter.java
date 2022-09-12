@@ -1,14 +1,19 @@
 package com.fpnatools.aggregation.insurances.framework.adapters.input;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
 import com.fpnatools.aggregation.insurances.domain.model.aggregates.Execution;
-import com.fpnatools.aggregation.insurances.framework.model.graphql.ExecutionGraphQL;
+import com.fpnatools.aggregation.insurances.framework.model.graphql.ExecutionQueryResolver;
+import com.fpnatools.aggregation.insurances.framework.model.graphql.ExecutionType;
+import com.fpnatools.aggregation.insurances.framework.model.graphql.ExecutionsQueryResolver;
 import com.fpnatools.aggregation.insurances.framework.persistence.repository.ExecutionRepository;
 
 import lombok.AllArgsConstructor;
@@ -16,15 +21,15 @@ import lombok.AllArgsConstructor;
 
 @Controller
 @AllArgsConstructor
-public class GraphQLAdapter {
+public class GraphQLAdapter implements ExecutionsQueryResolver, ExecutionQueryResolver {
 
 	private ExecutionRepository executionRepository;
 	
 	@QueryMapping
-	public ExecutionGraphQL execution(@Argument Long executionId) {
-		Execution execution = executionRepository.findById(executionId).get();
+	public ExecutionType execution(@Argument Integer executionId) {
+		Execution execution = executionRepository.findById(executionId.longValue()).get();
 		
-		return ExecutionGraphQL.builder().
+		return ExecutionType.builder().
 				setId(executionId + "").
 				setCompanyName(execution.getInsuranceCompanyEntity().getName()).
 				setExecutionStatus(execution.getExecutionStatus() + "").
@@ -33,4 +38,26 @@ public class GraphQLAdapter {
 				setExecutionDate(execution.getTimestamp().
 						format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))).build();
 	}
+	
+	@QueryMapping
+	public List<ExecutionType> executions(@Argument Integer size){
+		List<ExecutionType> executions = executionRepository.findAll(PageRequest.of(0, size != null ? size : 10, Sort.by(Direction.DESC, "timestamp"))).
+			stream().
+			filter(e -> e.getInsuranceCompanyEntity() != null).
+			map(e -> {
+				return ExecutionType.builder().
+						setId(e.getId() + "").
+						setCompanyName(e.getInsuranceCompanyEntity().getName()).
+						setExecutionStatus(e.getExecutionStatus() + "").
+						setUsername(e.getUsername()).
+						setTotalDuration(e.getTotalDuration()).
+						setExecutionDate(e.getTimestamp().
+								format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))).build();
+				
+			}).toList();
+		
+		return executions;
+	}
+
+
 }

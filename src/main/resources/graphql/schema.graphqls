@@ -1,8 +1,14 @@
 type Query {
-    execution (executionId: Int) : ExecutionGraphQL
+    execution (executionId: Int) : ExecutionType
+    executions(size: Int ): [ExecutionType]
 }
 
-type ExecutionGraphQL{
+type InsuranceCompanyType{
+	id: ID !
+	name: String!
+}
+
+type ExecutionType{
 	id: ID !
 	companyName: String !
 	executionDate: String !
@@ -10,3 +16,5 @@ type ExecutionGraphQL{
 	username: String !
 	totalDuration: Float
 }
+
+union ExecutionOrInsuranceCompany = ExecutionType | InsuranceCompanyType

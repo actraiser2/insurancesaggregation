@@ -28,6 +28,6 @@ spec:
   tls:
     - hosts:
         - fpnatools.com
-      secretName: insurances-aggregation-tls
+      secretName: insurances-aggregation-tlss
     
     

@@ -30,7 +30,7 @@
         </repository>
     </repositories>
 	
-	
+	 
 	<dependencyManagement>
     	<dependencies>
 	        <dependency>

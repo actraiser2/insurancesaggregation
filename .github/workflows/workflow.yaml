@@ -6,4 +6,7 @@ on:
 jobs:
   compile:
     runs-on: maven:3.8.6-jdk-8-slim
+    steps:
+      - name: compile
+        run: mvn clean compile
 

@@ -1,25 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import './css/App.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
-function App() {
+let currentDate = new Date()
+let f = x => x*x;
+console.log(`Current Date: ${currentDate}: ${f(2)}`)
+function App(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React faster !!!!
-        </a>
-      </header>
-    </div>
+    <div className="container">
+	    <h1>Hello World !!!</h1>
+	    <p>Date: {props.username} </p>
+	</div>
   );
 }
 
-export default App;
+export default App
+

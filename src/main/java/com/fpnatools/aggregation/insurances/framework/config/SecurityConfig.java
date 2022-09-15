@@ -16,7 +16,10 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 import com.fpnatools.aggregation.insurances.domain.model.entities.AppUser;
 import com.fpnatools.aggregation.insurances.framework.persistence.repository.UserRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Configuration
+@Slf4j
 public class SecurityConfig {
 
 	@Bean
@@ -38,11 +41,11 @@ public class SecurityConfig {
 			csrf().disable().build();
 	}
 	
-	@Bean
+	//@Bean
 	public UserDetailsService userDetailsService(UserRepository userRepository) {
 		return appUser -> {
 			Optional<AppUser> user = userRepository.findByAppUser(appUser);
-			
+			log.info("AppUser:" + user.get().getAppUser());
 			if (user.isPresent()) {
 				UserDetails userDetails = User.withUsername(appUser)
 						.roles(user.get().getRoleName()).password(user.get().getPassword()).build();

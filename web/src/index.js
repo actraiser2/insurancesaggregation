@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import './css/index.css';
+import  App from './App';
+import Component1 from './components/Component1'
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    
+    	<App username="jose"/>
+    
   </React.StrictMode>
 );
 
@@ -16,5 +19,5 @@ root.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 
-var [reactVersion1, versionReact2] = React.version;
+let [reactVersion1, versionReact2] = React.version;
 console.log(`React version: ${reactVersion1}`)  

@@ -1,19 +1,9 @@
+name: Build Insurances aggregator
 on:
+  push:
+    branchs:
+     - main
+jobs:
+  compile:
+    runs-on: maven:3.8.6-jdk-8-slim
 
-  workflow_dispatch:
-
-    inputs:
-
-      username:
-
-        description: 'Your GitHub username'
-
-        required: true
-
-      reason:
-
-        description: 'Why are you running this workflow manually?'
-
-        required: true
-
-        default: 'I am running tests before implementing an automated workflow'

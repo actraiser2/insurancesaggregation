@@ -5,8 +5,8 @@ on:
      - main
 jobs:
   build:
-    runs-on: maven:3.8.6-jdk-8-slim
+    runs-on: ubuntu-20.04
     steps:
       - name: compile
-        run: mvn clean compile
+        run: echo compiling project
 

@@ -16,4 +16,6 @@ jobs:
           cache: maven
       - name: Compile project
         run: mvn compile
+      - name: Gnerate the image
+        run: mvn jib:build
 

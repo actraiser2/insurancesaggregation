@@ -12,12 +12,9 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Compile project
-        run: mvn compile
-      - name: Dump secrets
-        run: echo $DOCKER_HUB_USERNAME
-        env:
-          DOCKER_HUB_USERNAME: ${{secrets.DOCKER_HUB_USERNAME}}
-          DOCKER_HUB_PASSWORD: ${{secrets.DOCKER_HUB_PASSWORD}}
+        run: mvn package
+      - name: ls project
+        run: ls -lah  
       - name: Gnerate the image
         run: mvn jib:build
         env:

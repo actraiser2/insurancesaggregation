@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.fpnatools.aggregation</groupId>
 	<artifactId>insurances</artifactId>
-	<version>1.0.7</version>
+	<version>1.0.8</version>
 	<name>InsurancesAggregation</name>
 	<description>Project for aggregating insurances</description>
 	<properties>

@@ -14,7 +14,7 @@ jobs:
       - name: Compile project
         run: mvn package
       - name: ls project
-        run: ls -lah  
+        run: echo $GITHUB_WORKSPACE $HOME
       - name: Gnerate the image
         run: mvn jib:build
         env:

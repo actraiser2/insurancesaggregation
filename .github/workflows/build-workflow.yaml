@@ -1,7 +1,7 @@
 name: Build Insurances aggregator
 on:
   push:
-    branchs: ["develop"]
+    branchs: ["master"]
 jobs:
   build:
     runs-on: ubuntu-20.04

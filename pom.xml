@@ -221,8 +221,8 @@
 		        	<to>
 		        		<image>actraiser/insurances-aggregation:${project.version}</image>
 		        		<auth>
-		        			<username>actraiser</username>
-		        			<password>fenix000</password>
+		        			<username>${env.DOCKER_HUB_USERNAME}</username>
+		        			<password>${env.DOCKER_HUB_PASSWORD}</password>
 		        		</auth>
 		        	</to>
 		        	<container>

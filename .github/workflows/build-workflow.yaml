@@ -1,7 +1,5 @@
 name: Build Insurances aggregator
-on:
-  push:
-    branchs: ["master"]
+on: ["push", "workflow-dispatch"]
 jobs:
   build:
     runs-on: ubuntu-20.04

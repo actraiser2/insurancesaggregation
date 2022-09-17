@@ -16,7 +16,10 @@ jobs:
       - name: Compile project
         run: mvn compile
       - name: Dump secrets
-        run: echo $DOCKER_HUB_USERNAME ; $DOCKER_HUB_PASSWORD
+        run: echo $DOCKER_HUB_USERNAME
+        env:
+          DOCKER_HUB_USERNAME: ${{secrets.DOCKER_HUB_USERNAME}}
+          DOCKER_HUB_PASSWORD: ${{secrets.DOCKER_HUB_PASSWORD}}
       - name: Gnerate the image
         run: mvn jib:build
         env:

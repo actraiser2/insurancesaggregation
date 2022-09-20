@@ -19,12 +19,13 @@ jobs:
       - name: Compile project
         run: mvn package && env
         env:
-          DOCKER_HUB_USERNAME: ${{secrets.DOCKER_HUB_USERNAME}}
-          DOCKER_HUB_PASSWORD: ${{secrets.DOCKER_HUB_PASSWORD}}
+          DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+          DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Generate the image
         run: mvn jib:build
         env:
-          DOCKER_HUB_USERNAME: ${{secrets.DOCKER_HUB_USERNAME}}
-          DOCKER_HUB_PASSWORD: ${{secrets.DOCKER_HUB_PASSWORD}}
+          DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+          DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
           
 

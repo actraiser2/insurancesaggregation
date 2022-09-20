@@ -1,3 +1,4 @@
+name: Deploy cluster kubernetes
 on: workflow_dispatch
 
 jobs:
@@ -9,6 +10,6 @@ jobs:
         with:
           token: ${{ secrets.DIGITALOCEAN_TOKEN }}
           k8s-url: https://115f9fa6-df7d-40ba-910d-1dcc2c6d9c72.k8s.ondigitalocean.com
-            
+          method: service-account
       - name: list pods
         run: kubectl get pods

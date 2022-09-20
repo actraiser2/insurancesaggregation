@@ -9,22 +9,19 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
-        if: ${{ github.ref == 'refs/heads/master' }}
+        if: ${{ github.ref == 'refs/heads/develop' }}
       - name: Prepare vm
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-        if: ${{ success()}}
       - name: Compile project
-        run: mvn package
-        if: ${{ success()}}
+        run: mvn package && env
       - name: Generate the image
         run: mvn jib:build
         env:
           DOCKER_HUB_USERNAME: ${{secrets.DOCKER_HUB_USERNAME}}
           DOCKER_HUB_PASSWORD: ${{secrets.DOCKER_HUB_PASSWORD}}
           
-        if: ${{ success()}}
 

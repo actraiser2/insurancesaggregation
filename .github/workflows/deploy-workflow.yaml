@@ -8,8 +8,7 @@ jobs:
       - name: set-context
         uses: azure/k8s-set-context@v1
         with:
-          k8s-secret: ${{ secrets.DIGITALOCEAN_TOKEN }}
-          k8s-url: https://115f9fa6-df7d-40ba-910d-1dcc2c6d9c72.k8s.ondigitalocean.com
-          method: service-account
+          kubeconfig: ${{ secrets.DIGITALOCEAN_KUBECONFIG }}
+          context: do-fra1-cluster-josemi
       - name: list pods
         run: kubectl get pods

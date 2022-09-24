@@ -1,6 +1,6 @@
 type Query {
     execution (executionId: Int) : ExecutionType
-    executions(size: Int ): [ExecutionType]
+    executions(size: Int, fromDate:String !, toDate:String ! ): [ExecutionType]
 }
 
 type InsuranceCompanyType{

@@ -1,4 +1,4 @@
-package com.fpnatools.aggregation.insurances.application.eventhandlers;
+package com.fpnatools.aggregation.insurances.framework.adapters.output;
 
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.messaging.MessageChannel;
@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 @Slf4j
 
-public class CreateExecutionEventHandler {
+public class DomainEventPublishingAdapter {
 
 	private MessageChannel executionsChannel;
 	

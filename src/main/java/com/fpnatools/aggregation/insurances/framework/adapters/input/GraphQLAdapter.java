@@ -1,5 +1,7 @@
 package com.fpnatools.aggregation.insurances.framework.adapters.input;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -9,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.fpnatools.aggregation.insurances.domain.model.aggregates.Execution;
 import com.fpnatools.aggregation.insurances.framework.model.graphql.ExecutionQueryResolver;
@@ -21,6 +24,7 @@ import lombok.AllArgsConstructor;
 
 @Controller
 @AllArgsConstructor
+
 public class GraphQLAdapter implements ExecutionsQueryResolver, ExecutionQueryResolver {
 
 	private ExecutionRepository executionRepository;
@@ -36,12 +40,17 @@ public class GraphQLAdapter implements ExecutionsQueryResolver, ExecutionQueryRe
 				setUsername(execution.getUsername()).
 				setTotalDuration(execution.getTotalDuration()).
 				setExecutionDate(execution.getTimestamp().
-						format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))).build();
+						format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"))).build();
 	}
 	
 	@QueryMapping
-	public List<ExecutionType> executions(@Argument Integer size){
-		List<ExecutionType> executions = executionRepository.findAll(PageRequest.of(0, size != null ? size : 10, Sort.by(Direction.DESC, "timestamp"))).
+	public List<ExecutionType> executions(@Argument Integer size, @Argument String fromDate, 
+			@Argument String toDate){
+		LocalDate _fromDate = LocalDate.parse(fromDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		LocalDate _toDate = LocalDate.parse(toDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		
+		List<ExecutionType> executions = executionRepository.findByTimestampBetween(_fromDate.atStartOfDay(), _toDate.atStartOfDay(), PageRequest.of(0, 
+				size != null ? size : 10, Sort.by(Direction.DESC, "timestamp"))).
 			stream().
 			filter(e -> e.getInsuranceCompanyEntity() != null).
 			map(e -> {
@@ -52,7 +61,7 @@ public class GraphQLAdapter implements ExecutionsQueryResolver, ExecutionQueryRe
 						setUsername(e.getUsername()).
 						setTotalDuration(e.getTotalDuration()).
 						setExecutionDate(e.getTimestamp().
-								format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))).build();
+								format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"))).build();
 				
 			}).toList();
 		

@@ -12,6 +12,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.reactive.CorsWebFilter;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import com.fpnatools.aggregation.insurances.domain.model.entities.AppUser;
 import com.fpnatools.aggregation.insurances.framework.persistence.repository.UserRepository;
@@ -38,6 +43,7 @@ public class SecurityConfig {
 				pathMatchers("/**").permitAll().
 			and().
 			//addFilterBefore(requestValidationFilter, BasicAuthenticationFilter.class).
+		
 			csrf().disable().build();
 	}
 	
@@ -57,6 +63,18 @@ public class SecurityConfig {
 			}
 		};
 	}
+	
+	  @Bean
+	  public CorsWebFilter  corsFilter() {
+	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	    CorsConfiguration config = new CorsConfiguration();
+	    //config.setAllowCredentials(true);
+	    config.addAllowedOrigin("*");
+	    config.addAllowedHeader("*");
+	    config.addAllowedMethod("*");
+	    source.registerCorsConfiguration("/graphql/**", config);
+	    return new CorsWebFilter (source);
+	  }
 	
 	
 }

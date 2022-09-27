@@ -11,7 +11,7 @@ import com.fpnatools.aggregation.insurances.application.ports.output.CacheOutput
 import com.fpnatools.aggregation.insurances.application.ports.output.RobotOutputPort;
 import com.fpnatools.aggregation.insurances.application.usecases.ProcessExecutionUseCase;
 import com.fpnatools.aggregation.insurances.domain.commands.UpdateExecutionCommand;
-import com.fpnatools.aggregation.insurances.domain.events.CreatedExecutionEventData;
+import com.fpnatools.aggregation.insurances.domain.events.CreatedExecutionEvent;
 import com.fpnatools.aggregation.insurances.domain.model.aggregates.Execution;
 import com.fpnatools.aggregation.insurances.domain.model.aggregates.valueobjects.AggregationResult;
 import com.fpnatools.aggregation.insurances.domain.model.aggregates.valueobjects.ExecutionStatus;
@@ -31,7 +31,7 @@ public class ProcessExecutionInputPort implements ProcessExecutionUseCase {
 	
 	@Override
 	@Transactional
-	public void processExecution(CreatedExecutionEventData data) {
+	public void processExecution(CreatedExecutionEvent data) {
 		// TODO Auto-generated method stub
 		
 		Long executionId = data.getExecution().getId();
@@ -84,7 +84,9 @@ public class ProcessExecutionInputPort implements ProcessExecutionUseCase {
 			
 			stopWatch.stop();
 			execution.updateExecution(new UpdateExecutionCommand(status, errorDescription, stopWatch.getTotalTimeSeconds()));
+			executionRepository.save(execution);
 		}
+		
 		log.info("Execution " + executionId + " finished:" + status + " =>" +
 				stopWatch.getTotalTimeSeconds() + " Seconds");
 	}

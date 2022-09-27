@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.event.TransactionalEventListener;
 
 import com.fpnatools.aggregation.insurances.domain.events.CreatedExecutionEvent;
+import com.fpnatools.aggregation.insurances.domain.events.UpdatedExecutionEvent;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,8 +21,13 @@ public class DomainEventPublishingAdapter {
 	
 	@TransactionalEventListener()
 	public void on(CreatedExecutionEvent event) {
-		log.info("Event captured:" + event.getData().getExecution());
-		executionsChannel.send(MessageBuilder.withPayload(event.getData()).build());
+		log.info("Event captured:" + event.getExecution().getId());
+		executionsChannel.send(MessageBuilder.withPayload(event).build());
 		//processExecutionUseCase.processExecution(event.getExecution().getId(), event.getCredentials());
+	}
+	
+	@TransactionalEventListener
+	public void on (UpdatedExecutionEvent event) {
+		log.info("Event execution finished:" + event.getExecution().getId());	
 	}
 }

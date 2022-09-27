@@ -18,7 +18,7 @@ import org.springframework.data.domain.AbstractAggregateRoot;
 import com.fpnatools.aggregation.insurances.domain.commands.CreateExecutionCommand;
 import com.fpnatools.aggregation.insurances.domain.commands.UpdateExecutionCommand;
 import com.fpnatools.aggregation.insurances.domain.events.CreatedExecutionEvent;
-import com.fpnatools.aggregation.insurances.domain.events.CreatedExecutionEventData;
+import com.fpnatools.aggregation.insurances.domain.events.UpdatedExecutionEvent;
 import com.fpnatools.aggregation.insurances.domain.model.aggregates.valueobjects.ExecutionStatus;
 import com.fpnatools.aggregation.insurances.domain.model.entities.AppUser;
 import com.fpnatools.aggregation.insurances.domain.model.entities.InsuranceCompany;
@@ -62,21 +62,23 @@ public class Execution extends AbstractAggregateRoot<Execution>{
 	
 	
 	public Execution(CreateExecutionCommand command) {
-		log.info("Executing command " + command);
+		log.info("Executing command CreateExecutionCommand " + command);
 		
 		this.setExecutionStatus(ExecutionStatus.ONGOING);
 		this.setUser(command.getAppUser());
 		this.setUsername(command.getCredentials().get("username"));
 		this.setInsuranceCompanyEntity(command.getInsuranceCompany());
-		this.registerEvent(new CreatedExecutionEvent(
-				new CreatedExecutionEventData(this, command.getCredentials())));
+		this.registerEvent(new CreatedExecutionEvent(this, command.getCredentials()));
 	
 	}
 	
 	public void updateExecution(UpdateExecutionCommand command) {
+		log.info("Executing command UpdateExecutionCommand " + command);
+		
 		this.setErrorDescription(command.getErrorDescription());
 		this.setExecutionStatus(command.getExecutionStatus());
 		this.setTotalDuration(command.getTotalDuration());
+		this.registerEvent(new UpdatedExecutionEvent(this));
 	}
 	
 	

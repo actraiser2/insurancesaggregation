@@ -4,9 +4,6 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import org.springframework.cloud.sleuth.Tracer;
-import org.springframework.messaging.MessageChannel;
-import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
 import com.fpnatools.aggregation.insurances.application.ports.output.CacheOutputPort;
@@ -17,7 +14,9 @@ import com.fpnatools.aggregation.insurances.domain.model.aggregates.valueobjects
 import com.fpnatools.aggregation.insurances.domain.model.aggregates.valueobjects.ExecutionStatus;
 import com.fpnatools.aggregation.insurances.domain.model.entities.AppUser;
 import com.fpnatools.aggregation.insurances.domain.model.entities.InsuranceCompany;
+import com.fpnatools.aggregation.insurances.framework.adapters.input.dto.CreateExecutionDTO;
 import com.fpnatools.aggregation.insurances.framework.exceptions.InsuranceCompanyNotFoundException;
+import com.fpnatools.aggregation.insurances.framework.mappers.CreateExecutionMapper;
 import com.fpnatools.aggregation.insurances.framework.persistence.repository.ExecutionRepository;
 import com.fpnatools.aggregation.insurances.framework.persistence.repository.InsuranceCompanyRepository;
 import com.fpnatools.aggregation.insurances.framework.persistence.repository.UserRepository;
@@ -33,21 +32,22 @@ public class CreateExecutionInputPort implements CreateExecutionUseCase {
 	private ExecutionRepository executionRepository;
 	private UserRepository userRepository;
 	private InsuranceCompanyRepository insuranceCompanyRepository;
-	private MessageChannel executionsChannel;
 	private CacheOutputPort cacheAdapter;
-	private Tracer tracer;
+	private CreateExecutionMapper createExecutionMapper;
 	
 	
 	@Override
 	@Transactional
-	public Long createExecution(String appUser, CreateExecutionCommand command) {
+	public Long createExecution(String appUser, CreateExecutionDTO createExecutionDTO) {
 		// TODO Auto-generated method stub
 		AppUser userEntity = userRepository.findByAppUser(appUser).get();
-		Optional<InsuranceCompany> insuranceCompanyEntity = insuranceCompanyRepository.findByName(command.getEntityName());
+		Optional<InsuranceCompany> insuranceCompanyEntity = insuranceCompanyRepository.findByName(createExecutionDTO.getEntityName());
 		
-		log.info("New request for " + command.getEntityName());
+		log.info("New request for " + createExecutionDTO.getEntityName());
 
 		if (insuranceCompanyEntity.isPresent()) {
+			CreateExecutionCommand command = createExecutionMapper.map(createExecutionDTO);
+			
 			command.setAppUser(userEntity);
 			command.setInsuranceCompany(insuranceCompanyEntity.get());
 			Execution execution = new Execution(command);

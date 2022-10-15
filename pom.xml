@@ -260,7 +260,7 @@
 	                    <path>
 	                        <groupId>org.mapstruct</groupId>
 	                        <artifactId>mapstruct-processor</artifactId>
-	                        <version>1.5.2.FINAL</version>
+	                        <version>1.5.2.Final</version>
 	                    </path>
 	                    
 	                     <path>

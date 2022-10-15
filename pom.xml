@@ -15,12 +15,12 @@
 	<description>Project for aggregating insurances</description>
 	<properties>
 		<java.version>17</java.version>
-		<spring.cloud-version>2021.0.3</spring.cloud-version>
+		<spring.cloud-version>2021.0.4</spring.cloud-version>
 		 <spring-native.version>0.12.1</spring-native.version>
 		 <m2e.apt.activation>jdt_apt</m2e.apt.activation>
 	</properties>
 	
-	<repositories>
+	<!-- <repositories>
         <repository>
             <id>spring-milestones</id>
             <name>Spring Milestones</name>
@@ -30,7 +30,7 @@
             </snapshots>
         </repository>
     </repositories>
-	
+	-->
 	 
 	<dependencyManagement>
     	<dependencies>

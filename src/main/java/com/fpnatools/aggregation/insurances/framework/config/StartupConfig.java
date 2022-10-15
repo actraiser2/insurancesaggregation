@@ -49,10 +49,19 @@ public class StartupConfig {
 				caserEntity.setName("Caser");
 				
 				var santaLuciaEntity = new InsuranceCompany();
-				santaLuciaEntity.setName("Santa Lucia");
+				santaLuciaEntity.setName("SantaLucia");
 				
 				var zurichEntity = new InsuranceCompany();
 				zurichEntity.setName("Zurich");
+				
+				var helvetiaEntity = new InsuranceCompany();
+				helvetiaEntity.setName("Helvetia");
+				
+				var generaliEntity = new InsuranceCompany();
+				generaliEntity.setName("Generali");
+				
+				var plusUltra = new InsuranceCompany();
+				generaliEntity.setName("PlusUltra");
 				
 				
 				insuranceCompanyRepository.save(mapfreEntity);
@@ -63,6 +72,9 @@ public class StartupConfig {
 				insuranceCompanyRepository.save(caserEntity);
 				insuranceCompanyRepository.save(santaLuciaEntity);
 				insuranceCompanyRepository.save(zurichEntity);
+				insuranceCompanyRepository.save(helvetiaEntity);
+				insuranceCompanyRepository.save(generaliEntity);
+				insuranceCompanyRepository.save(plusUltra);
 			}
 			
 			if (userRepository.count() == 0) {

@@ -9,7 +9,7 @@ import static io.restassured.RestAssured.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
-@Component
+//@Component
 @AllArgsConstructor
 @Log4j2
 public class SeleniumGridHealthIndicator implements HealthIndicator {

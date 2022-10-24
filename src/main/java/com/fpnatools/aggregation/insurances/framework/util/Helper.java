@@ -12,6 +12,12 @@ public class Helper {
 			subscribe(log::info);
 		
 		log.info("Main thread");
-		Thread.sleep(10000);
+		
+		var a = "\u0031\u0032";
+		var c = 0x1e;
+		var b = 0x12;
+		log.info(a);
+		log.info(c + "");
+		log.info(b + "");
 	}
 }
